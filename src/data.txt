@@ -1,0 +1,32 @@
+the fat car ran down the street
+it was searching for a mouse to eat
+
+
+
+3
+3 10
+3 7 2
+4 100
+11 10 5 50
+1 1
+1
+
+
+Case #1: 6
+Case #2: 99
+Case #3: 1
+
+
+In Sample Case #1, there are N = 3 bus routes and Bucket must arrive by day D = 10. She could:
+Take the 1st bus on day 6 (X1 = 3),
+Take the 2nd bus on day 7 (X2 = 7) and
+Take the 3rd bus on day 8 (X3 = 2).
+
+In Sample Case #2, there are N = 4 bus routes and Bucket must arrive by day D = 100. She could:
+Take the 1st bus on day 99 (X1 = 11),
+Take the 2nd bus on day 100 (X2 = 10),
+Take the 3rd bus on day 100 (X3 = 5) and
+Take the 4th bus on day 100 (X4 = 50),
+
+In Sample Case #3, there is N = 1 bus route and Bucket must arrive by day D = 1. She could:
+Take the 1st bus on day 1 (X1 = 1).
