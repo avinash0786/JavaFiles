@@ -339,7 +339,7 @@ public class Practice_productBased
         int res=0;
         int count=1;
         int ahead=0;
-        int bhead=0;
+        int bhead=1;
 
         while(res<=x)
         {
