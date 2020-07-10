@@ -1,0 +1,4 @@
+apple is red
+mango is yellow
+my name is avinash
+i am currently pursuing b.tech cse
