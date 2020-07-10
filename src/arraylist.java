@@ -9,11 +9,13 @@ public class arraylist
     {
         ArrayList<Integer> mylist=new ArrayList<Integer>();    //default starting size is 10
         ArrayList aa=new ArrayList();
-        aa.add(88);
-        System.out.println(aa.get(0));
+        aa.add(89);
+        //System.out.println(aa.get(0));
         aa.add(12);
-        aa.remove(0);
+        //aa.remove(0);
         aa.add(45);
+        aa.add(12);
+        aa.add(56);
         System.out.println(aa);
 
         //----------------------------------------
@@ -28,13 +30,16 @@ public class arraylist
         for(int n:l1)
             System.out.println(n);
 
-        ArrayList<Integer> ss=new ArrayList<>();
+        ArrayList<Integer> op=(ArrayList<Integer>)( aa.clone());
+        op.retainAll(l1);
+        System.out.println(op);
+        /*ArrayList<Integer> ss=new ArrayList<>();
         ss.add(88);
         ss.addAll(l1);
-        System.out.println("addall ss: "+ss);
+        System.out.println("addall ss: "+ss);*/
 
-        ss.removeAll(mylist);
-        System.out.println("removeall ss"+ss);
+       // ss.removeAll(mylist);
+        //System.out.println("removeall ss"+ss);
 
         //ss.clear();
        // ss.removeAll();removes all except provided collection

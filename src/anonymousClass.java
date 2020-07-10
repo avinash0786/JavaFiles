@@ -29,5 +29,7 @@ public class anonymousClass
             }
         };
         ob.show();
+        String a="aple";
+        System.out.println(a.contains("a"));
     }
 }

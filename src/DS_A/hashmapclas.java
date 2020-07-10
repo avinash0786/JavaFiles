@@ -11,7 +11,8 @@ public class hashmapclas
         mymap.put("apple","red in colour");
         mymap.put("mango","yellow in colour");
         mymap.put("grapes","green in colour");
-
+        System.out.println(mymap.get("apple"));
+        mymap.replace("apple","new val");
         for(String n:mymap.keySet())
             System.out.println(n+" : "+mymap.get(n));
         System.out.println("-----------------------------");

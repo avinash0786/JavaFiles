@@ -1,0 +1,23 @@
+.  -Any character except new line
+\d -Digit(0-9)
+\d -not a Digit
+\w -Word character( a-z, A-Z, 0-9,_)
+\W -Not a word character
+\s -WhiteSpace(space,tab, newline)
+\S -not a whitespace
+
+\b -word boundary
+\B - not a word boundary
+^ -Beginning of a string
+$ -End of a string
+
+[] -Matches character in brackets
+[^ ] -Matches character NOT in brackets
+| - Either OR
+() - Group
+
+* - 0 or more
++ -1 or more
+? -0 or one
+{ 3 } -Exact number
+{2,3} -range of number

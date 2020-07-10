@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class hashing
 {
-    static LinkedList [] hashTable=new LinkedList[10];
+    static LinkedList [] hashTable=new LinkedList[10];   // array of linked list
     //static
     public static int getIndex(int x)
     {

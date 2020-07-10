@@ -11,5 +11,6 @@
     <orderEntry type="library" name="courserajava" level="application" />
     <orderEntry type="library" name="mongo-java-driver-3.0.4-javadoc" level="application" />
     <orderEntry type="library" name="mongo-java-driver-3.12.3" level="application" />
+    <orderEntry type="library" name="apache-csv" level="application" />
   </component>
 </module>

@@ -15,5 +15,9 @@ public class string
         System.out.println(newst.replace('p','a'));//replace
 
         System.out.println(newst.indexOf('w'));//index of character
+        System.out.println("tO CHAR ARRAY:  ");
+        //for(char a:newst.toCharArray())System.out.println(a+" ");
+        String[] ne="abc".split("");
+        for(String a:ne) System.out.println(a);
     }
 }

@@ -8,11 +8,10 @@ public class parenthesis_matcher
         Stack s=new Stack();
         for(int i:arr)
         {
-            int t=i;
             //System.out.println(t);
-            if(t==40 )
+            if(i ==40 )
                 {s.push(i);}
-            else if(t==41)
+            else if(i ==41)
                 {
                     if(s.head==null)
                     {
