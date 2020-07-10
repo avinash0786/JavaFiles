@@ -337,7 +337,7 @@ public class Practice_productBased
     static int twoStacks(int x, int[] a, int[] b)
     {
         int res=0;
-        int count=0;
+        int count=1;
         int ahead=0;
         int bhead=0;
 
