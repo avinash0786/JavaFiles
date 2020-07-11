@@ -389,7 +389,7 @@ public class Practice_productBased
         System.out.println("Super reduced string: "+superReducedString("aaabccddd"));
         System.out.println("don: "+cookies(10,new int[]{1 ,1,1}));
         System.out.println("Balanced bracket: "+isBalanced("{{[[(())]]}}"));
-        //System.out.println(Math.max(-88,-26));
+        System.out.println(Math.max(-88,-26));
         System.out.println(largestRectangle(new int[]{1,4,3,5,7}));
     }
 }
