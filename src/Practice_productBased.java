@@ -353,16 +353,98 @@ public class Practice_productBased
     }
     static long largestRectangle(int[] h)
     {
-        int area=Integer.MIN_VALUE;
-        int cur=0;
-        for(int i=1;i<h.length;i++)
+        int n = h.length, i = 0, area = 0;
+        Stack<Integer> s = new Stack<>();
+        while (i < n) {
+            while (!s.isEmpty() && h[i] < h[s.peek()])
+            {
+                area = Math.max(area, h[s.pop()] * (i - (s.isEmpty() ? 0 : s.peek() + 1)));
+            }
+            s.push(i++);
+        }
+        while (!s.isEmpty())
         {
-            int presentVal=h[i];
-            h[i]=Math.max(presentVal,Math.min(h[i-1],h[i])+h[i]);
-            area=Math.max(area,h[i]);
-            System.out.println("area: "+area+ " i: "+i);
+            area = Math.max(area, h[s.pop()] * (n - (s.isEmpty() ? 0 : s.peek() + 1)));
         }
         return area;
+    }
+    public static boolean isPrime(int n)
+    {
+        for(int i=2;i<Math.sqrt(n);i++)
+        {
+            if(n%i==0) return false;
+        }
+        return true;
+    }
+    public static int [] getPrimes(int n)
+    {
+        int [] primes=new int[n];
+
+        int c=0;
+        for(int i=2;c<n;i++)
+        {
+            if(isPrime(i)) primes[c++]=i;
+        }
+        System.out.println("Primes ok");
+        return primes;
+    }
+    static int[] waiter(int[] number, int q)
+    {
+        int [] primes=getPrimes(q);
+        int i=1;
+        for(int j:primes) System.out.print(j+" ");
+        ArrayList<Integer> biCont=new ArrayList<>();
+        Stack<Integer> A=new Stack<>();
+        Stack<Integer> B =new Stack<>();
+        //  INITIALLY A0 VALUES IN STACK Ao
+        for(int a:number)
+            A.add(a);
+        Stack<Integer> Abuffer=new Stack<>();
+        boolean aFlag=true;
+        while (i<=q)
+        {
+            System.out.println("run i: "+i);
+            while (!A.isEmpty())
+            {
+                int element=A.pop();
+                if(element%primes[i-1]==0) {
+                    B.add(element);
+                    System.out.println("Element insterted to B: "+element);
+                }
+                else {
+                    Abuffer.add(element);
+                    System.out.println("Element insterted to Abuffer: "+element);
+                }
+            }
+            //Adding B stack to array list
+            while (!B.isEmpty()) {
+                biCont.add(B.pop());
+            }
+            if(Abuffer.isEmpty()) {  //setting a to false for empty
+                aFlag = false;
+            }
+            else {
+                A.clear();
+                A= (Stack<Integer>) Abuffer.clone();
+                Abuffer.clear();
+            }
+            i++;
+        }
+        System.out.println(biCont);
+        int [] out=new int[biCont.size()+A.size()];
+        Iterator<Integer> ite=biCont.iterator();
+        i=0;
+        for(int j=i;j<biCont.size();j++)
+            out[j]=biCont.get(j);
+        i=biCont.size();
+        System.out.println("i: "+i+"  Both size: "+(biCont.size()+A.size()));
+        System.out.println("Aflag: "+aFlag);
+        while (!A.isEmpty() && i<=(biCont.size()+A.size()+1) && aFlag)  {
+            out[i] = A.pop();
+            System.out.println("Add out: "+out[i]+" i: "+i);
+            i++;
+        }
+        return out;
     }
     public static void main(String ...a)
     {
@@ -390,6 +472,10 @@ public class Practice_productBased
         System.out.println("don: "+cookies(10,new int[]{1 ,1,1}));
         System.out.println("Balanced bracket: "+isBalanced("{{[[(())]]}}"));
         System.out.println(Math.max(-88,-26));
-        System.out.println(largestRectangle(new int[]{1,4,3,5,7}));
+        System.out.println("lARGEST RECTANGLE: "+largestRectangle(new int[]{1,4,3,5,7}));
+        System.out.println("divisible: "+(2%3==0));
+        System.out.println("Waiter: ");
+        for(int i:waiter(new int[]{3,3,4,4,9},2))
+            System.out.print(i+"- ");
     }
 }
