@@ -1,5 +1,7 @@
 package GEEKS_FOR_GEEKS;
 
+import java.util.Arrays;
+
 public class searchingChapter
 {
     static int search(int arr[], int n, int x)
@@ -257,6 +259,341 @@ public class searchingChapter
         }
         return -1;
     }
+    public static int leftIndexIter(int []arr,int x)
+    {
+        int start=0;
+        int end=arr.length-1;
+        while (start<=end)
+        {
+            int mid=(start+end)/2;
+            if(arr[mid]>x)
+                end=mid-1;
+            else if(arr[mid]<x)
+                start=mid+1;
+            else {
+                if(mid==0 || arr[mid-1]!=arr[mid])
+                    return mid;
+                else
+                    end=mid-1;
+            }
+        }
+        return -1;
+    }
+    public static int sqFloor(int n)
+    {
+        int low=1;
+        int high=n;
+        int ans=0;
+        while (low<=high)
+        {
+            int mid=(low+high)/2;
+            int msq=mid*mid;
+            if(msq==n) return mid;
+            else if(msq>n)
+                high=mid-1;
+            else {
+                low=mid+1;
+                ans=mid;
+            }
+        }
+        return ans;
+    }
+    public static int sortRotSearch(int []arr,int x)
+    {
+        int low=0;
+        int high=arr.length-1;
+        while (low<=high)
+        {
+            int mid=(high+low)/2;
+            System.out.println("low: "+low+" high: "+high+" mid: "+mid+" val: "+arr[mid]);
+            if(arr[mid]==x) return mid;
+            else if(arr[low]<arr[mid])
+            {
+                if(x>=arr[low] && x<arr[mid])
+                    high=mid-1;
+                else
+                    low=mid+1;
+            }
+            else {
+                if(x>arr[mid] && x<=arr[high])
+                    low=mid+1;
+                else
+                    high=mid-1;
+            }
+        }
+        return -1;
+    }
+    public  static int peakEle(int []arr)
+    {
+        int low=0;
+        int high=arr.length-1;
+        while (low<=high)
+        {
+            int mid=(low+high)/2;
+            //System.out.println("low: "+low+" high: "+high+" mid: "+mid+" val: "+arr[mid]);
+            if((mid==0 || arr[mid-1]<=arr[mid]) &&
+                    (mid==arr.length-1 || arr[mid+1]<=arr[mid]))
+                return arr[mid];
+            if(mid>0 && arr[mid-1]>=arr[mid])
+                high=mid-1;
+            else
+                low=mid+1;
+        }
+        return -1;
+    }
+    public static boolean pairSum(int []arr,int sum)
+    {
+        int low=0;
+        int high=arr.length-1;
+        while(low<=high)
+        {
+            int curSum=arr[low]+arr[high];
+            if(curSum==sum) {
+                System.out.println(arr[low] + "+" + arr[high]+"="+sum);
+                return true;
+            }
+            if(curSum>sum) high--;
+            else low++;
+        }
+        return false;
+    }
+    public static boolean isPair(int []arr,int start, int end,int sum)
+    {
+        int low=start;
+        int high=end;
+        while (low<=high)
+        {
+            int s=arr[low]+arr[high];
+            if(s==sum)
+                return true;
+            if(s>sum) high--;
+            else low++;
+        }
+        return false;
+    }
+
+    public static boolean tripletSum(int[]arr,int sum)
+    {
+        for(int i=0;i<arr.length;i++)
+        {
+            if(isPair(arr,i+1,arr.length-1,sum-arr[i]))
+                return true;
+        }
+        return false;
+    }
+    public static double getMedian(int []a1,int []a2)
+    {
+        int n1=a1.length; int n2=a2.length;
+        int start=0; int end=n1;
+        while (start<=end)
+        {
+            int i1=(start+end)/2;
+            int i2=(n1+n2+1)/2-i1;
+            int min1=(i1==n1)?Integer.MAX_VALUE:a1[i1];
+            int max1=(i1==0)?Integer.MIN_VALUE:a1[i1-1];
+
+            int min2=(i2==n2)?Integer.MAX_VALUE:a2[i2];
+            int max2=(i2==0)?Integer.MIN_VALUE:a2[i2-1];
+
+            if(max1<=min2 && max2<=min1)
+            {
+                if((n1+n2)%2==0)
+                    return ((double)(Math.max(max1,max2)+Math.min(min1,min2)))/2;
+                else
+                    return Math.max(max1,max2);
+            }
+            else if(max1>min2) end=i1-1;
+            else start=i1+1;
+        }
+        return -1;
+    }
+    static long minNumber(int arr[], long low, long high)
+    {
+        while(low<=high)
+        {
+            long mid=low+(high-low)/2;
+            if(arr[(int) mid]<arr[(int) (mid-1)]||high==low)
+                return arr[(int) mid];
+            else if(arr[(int) mid]>arr[(int) high])
+                low=mid+1;
+            else
+                high=mid-1;
+        }
+        return arr[0];
+    }
+    static void twoRepeated(int arr[], int N)
+    {
+        int count=0;
+        int [] op=new int[N];
+        for(int i = 0; count<2 && i<arr.length ; i++)
+        {
+            if(op[arr[i]-1]==-1)
+            {
+                System.out.println(arr[i]);
+                count++;
+            }
+            else op[arr[i]-1]=-1;
+        }
+    }
+    static int maxStep(int A[], int N)
+    {
+        int maxH=0;
+        int curH=0;
+        for(int i=0;i<N-1;i++)
+        {
+            if(A[i+1]>A[i]) {
+                curH++;
+                maxH=Math.max(curH,maxH);
+            }
+            else{
+                curH=0;
+            }
+        }
+        return maxH;
+    }
+    static int maxWater(int arr[], int n)
+    {
+        int count=0;
+        int l=0;
+        int h=n-1;
+        int max_val=0;
+        while(l<=h)
+        {
+            count=Math.min(arr[l],arr[h])*(h-l-1);
+            if(arr[l]>=arr[h])
+                h--;
+            else
+                l++;
+            max_val=Math.max(max_val,count);
+        }
+        return max_val;
+    }
+    public static Point findRepeating(Integer arr[], int n)
+    {
+        //You can return point as new Point(x,y)
+        int l=0;
+        int h=n-1;
+        int c=0;
+        int e=0;
+        //System.out.println(arr[2].equals(arr[2 + 1]) || arr[2].equals(arr[2 - 1]));
+        while(l<=h)
+        {
+            int m=(l+h)/2;
+            System.out.println("low: "+l+" mid: "+m+" high: "+h);
+            if(arr[m].equals(arr[m - 1]) || arr[m].equals(arr[m + 1]))
+            {
+                e=arr[m];
+                c++;
+                for(int i=m+1;i<n;i++)
+                {
+                    if(arr[i].equals(arr[m]))
+                        c++;
+                }
+                for(int i=m-1;i>0;i--)
+                {
+                    if(arr[i].equals(arr[m]))
+                        c++;
+                }
+                break;
+            }
+            else if(arr[m]<m+arr[0])
+                h = m - 1;
+            else
+                l = m + 1;
+        }
+        return new Point(e,c);
+    }
+    public static int countOccurence(int[] arr, int n, int k)
+    {
+        Arrays.sort(arr);
+        int count=1;
+        int eleCOunt=0;
+        for(int i=0;i<n-1;i++)
+        {
+            if(arr[i]==arr[i+1]) {
+                count++;
+                continue;
+            }
+            else if(count>(n/k)) {
+                eleCOunt++;
+                count=1;
+            }
+            else count=1;
+        }
+        if(count>(n/k))
+            eleCOunt++;
+        return eleCOunt;
+    }
+    static void subarraySum(int n, int s, int[] m)
+    {
+        int low=0;
+        int high=0;
+        int curSum=0;
+        for(int i=0;i<n;i++)
+        {
+            curSum+=m[i];
+            if(curSum>=s)
+            {
+                high=i;
+                while (s<curSum && low<high)
+                {
+                    curSum-=m[low];
+                    ++low;
+                }
+                if(curSum==s)
+                {
+                    System.out.println((low+1)+" "+(high+1));
+                    break;
+                }
+            }
+        }
+        if(curSum!=s)
+        System.out.println("-1");
+    }
+    public static boolean possiblePage(int []arr, int n, int mid, int stu)
+    {
+        int student=1;
+        int curPage=0;
+        for(int i=0;i<n;i++)
+        {
+            if(curPage+arr[i]>mid)
+            {
+                curPage=arr[i];
+                student++;
+                if(student>stu)
+                    return false;
+            }
+            else curPage+=arr[i];
+        }
+        return true;
+    }
+    public static int findPages(int[]a,int n,int m)
+    {
+        int low=0;
+        int high=0;
+        for(int i:a) {
+            high += i;
+            low=Math.max(low,i);
+        }
+        int ans=-1;
+        int mid=0;
+        while (low<=high)
+        {
+            mid=(low+high)/2;
+            if(possiblePage(a,n,mid,m))
+            {
+                ans=mid;
+                high=mid-1;
+            }
+            else {
+                low=mid+1;
+            }
+        }
+        if(ans!=-1)
+            return ans;
+        return ans;
+    }
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void main(String ...aa)
     {
@@ -267,6 +604,24 @@ public class searchingChapter
         //System.out.println(findMajority(new int[]{3,1,3,3,2},5));
         //repeated(new int[]{3,1,3,3,2});
         //sortedOccurence(new int[]{5,6,7,10 ,20, 20, 20, 20, 20,20,25,25,25,30,50},25);
-        System.out.println(findFloor(new long[]{1 ,2 ,8, 10, 11, 12, 19},0,6,5));
+        //System.out.println(findFloor(new long[]{1 ,2 ,8, 10, 11, 12, 19},0,6,5));
+
+        System.out.println(leftIndexIter(new int[]{1,10,10,10,20,20,30,30},10));
+        System.out.println(sqFloor(10));
+        System.out.println(sortRotSearch(new int[]{10,20,40,60,4,5,8},4));
+        System.out.println(peakEle(new int[]{2,20,40,30,20,50,60}));
+        System.out.println("Pair sum: "+pairSum(new int[]{3,4,8,9,11,12,20,30},23));
+        System.out.println("Triplet sum: "+tripletSum(new int[]{2,3,4,8,9,20,40},32));
+        System.out.println("Median: "+getMedian(new int[]{1,2,3,4},new int[]{11,12,13,14}));
+        System.out.println("Sorted rot min: "+minNumber(new int[]{10,20,30,40,5,6,9},0,6));
+        System.out.println(findRepeating(new Integer[]{1,2,3,3,4},5));
+        System.out.println(countOccurence(new int[]{3, 1, 2, 2, 1, 2, 3, 3},8,4));
+        subarraySum(10,15,new int[]{1, 2,1,1,1,1,1,1,1,1});
+
     }
+    /*
+    1. Count pair with a given sum
+    2. Count triplet with given sum
+    3. Find if there is a triplet a,b,c such that a^2+b^2=c^2(pythagorian triplet)
+     */
 }

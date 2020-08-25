@@ -68,7 +68,6 @@ public class bitwise
         System.out.println(setBits(127));
         //System.out.println(setBitsOptimized(127));
         System.out.println(countSetBits(17));
-        System.out.println(3%4);
 
         /*//  XOR 0 when same , 1 when different
         int x=3;

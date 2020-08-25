@@ -139,6 +139,39 @@ public class recursion
         return  (long) pow%1000000007;
 
     }
+    public static void toh(int n, char src,char aux, char dest)
+    {
+        if(n==1)
+        {
+            System.out.println("Move disk 1 form "+src+" to "+dest);
+            return;
+        }
+        toh(n-1,src,dest,aux);
+        System.out.println("Move disk "+n+" from "+src+" to "+dest);
+        toh(n-1,aux,src,dest);
+    }
+    public static int joshepus(int n,int k)
+    {
+        if(n==1)
+            return 0;
+        else return (joshepus(n-1,k)+k)%n;
+    }
+    public static int countSubsetSum(int []arr,int n,int sum)
+    {
+        if(n==0) return (sum==0)?1:0;
+        return countSubsetSum(arr,n-1,sum)+countSubsetSum(arr,n-1,sum-arr[n-1]);
+    }
+    public static void main(String ...ss)
+    {   /*System.out.println(9-95);
+        //printNos(5);
+        System.out.println(digitalRoot(27640));
+        System.out.println(termOfGP(84,87,3));  */
+        //System.out.println(exactly3Divisors(49));
+        toh(4,'A','B','C');
+        System.out.println(joshepus(5,3));
+        System.out.println(countSubsetSum(new int[]{10,15,20},3,25));
+    }
+}
     /*
     * Try using modulus property with fast exponentian:
 
@@ -158,12 +191,3 @@ then (x + y) % y will do the trick
 
 Note:
 Also as the product of (a ^ b/2) * (a ^ b/2) and a * (a ^( b-1) may cause overflow, hence we must be careful about those scenarios*/
-
-    public static void main(String ...ss)
-    {   /*System.out.println(9-95);
-        //printNos(5);
-        System.out.println(digitalRoot(27640));
-        System.out.println(termOfGP(84,87,3));  */
-        System.out.println(exactly3Divisors(49));
-    }
-}

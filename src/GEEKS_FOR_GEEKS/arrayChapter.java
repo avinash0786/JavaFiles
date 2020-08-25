@@ -222,8 +222,6 @@ public class arrayChapter
         {
             minRange=min3(L[i]);
             maxRange=max3(R[i]);
-            //System.out.println("maxrange: "+maxRange+" minrange: "+minRange);
-
         }
         int eleCount=0;
         //System.out.println("max: "+maxRange+" min: "+minRange);
@@ -655,66 +653,25 @@ public class arrayChapter
         return a;
     }
 
-    public static boolean checkRotatedAndSorted(int arr[], int num)
-    {
-        boolean flag=false;
-        int maxIndex=0;
-        int minIindex=0;
-        int max=0;
-        int min=999;
-        for(int i=0;i<num;i++)
+    public static boolean checkRotatedAndSorted(int arr[], int n){
+
+        int inc=0;
+        if(arr[0]>=arr[n-1])
         {
-            if(arr[i]>max)
+            inc=1;
+            for(int i=1;i<n;i++)
             {
-                max=arr[i];
-                maxIndex=i;
-            }
-            if(arr[i]<min)
-            {
-                min=arr[i];
-                minIindex=i;
+                if(arr[i]<arr[i-1])
+                    inc++;
             }
         }
-        if(maxIndex==arr.length-1 || minIindex==0)
+        else {
             return false;
-        int  sorting=0;       //    -1 decreasing 1 increasing
-        if(maxIndex<minIindex)      //      30, 20, 10, 50, 35
-            sorting=1;
-        else sorting=-1;
-        System.out.println("max: "+max+ " maxindex: "+maxIndex+" min: "+min+" minindex: "+minIindex+ " Sorting: "+sorting);
-        if(sorting==1)
-        {
-            for(int i=1;i<=maxIndex;i++)
-            {   System.out.println("i: "+i);
-                if(arr[i]>=arr[i-1])
-                    continue;
-                else return false;
-            }                                           //      71 ,75, 75, 77, 89, 89, 92, 3, 11, 13, 24, 28, 33, 58, 61, 66
-            for(int i=minIindex+1;i<arr.length;i++)     //  41 50 52 60 63 63 66 75 83 89 95 10 28 4 38
-            {   System.out.println("  2- i: "+i);
-                if(arr[i]>=arr[i-1])
-                    continue;
-                else return false;
-            }
-            if(arr[0]>arr[arr.length-1])
-                return true;
         }
-        else {  System.out.println("sorting running : "+sorting);
-            for(int i=1;i<=minIindex;i++)
-            {   System.out.println("i: "+i);
-                if(arr[i]<=arr[i-1])
-                    continue;
-                else return false;                  //      30, 20, 10, 50, 35
-            }
-            for(int i=maxIndex;i<arr.length-1;i++)
-            {   System.out.println("  2- i: "+i);
-                if(arr[i]>=arr[i+1])
-                    continue;
-                else return false;
-            }
-            if(arr[0]<arr[arr.length-1])
-                return true;
-        }
+        if(inc==2) return true;
+        return false;
+
+    }
 /*
 * After the previous Hint, the question only remains to check for any other irregularity.
 
@@ -729,8 +686,6 @@ Check if array is decreasing upto Min. Element
 Check if array is decreasing again after Max Element
 Check if Last Element is larger than the first element
 If all these conditions meet, the array is sorted and rotated*/
-        return flag;
-    }
     public static int slidingMaxSum(int [] arr, int k)
     {
         int maxSum=0;
@@ -745,12 +700,28 @@ If all these conditions meet, the array is sorted and rotated*/
         }
         return maxSum;
     }
-    public static void prefixSum(int []arr)
+    public static int [] prefixSum(int []arr)
     {
         for(int i=1;i<arr.length;i++)
             arr[i]+=arr[i-1];
-        for(int i:arr)
-            System.out.print(i+" ");
+        return arr;
+    }
+    public static int queryPrefix(int []arr,int s,int e)
+    {
+        int []sum=prefixSum(arr);
+        if(s!=0)
+            return sum[e]-sum[s-1];
+        return sum[e];
+    }
+    public static int equilibrium(int [] arr)
+    {
+        int[] pre=prefixSum(arr);
+        for(int i=1;i<arr.length-1;i++)
+        {
+            if(pre[i-1]==(pre[arr.length-1]-pre[i]))
+                return i;
+        }
+        return -1;
     }
     public static boolean subarraySum(int []arr, int n, int sum)
     {
@@ -759,14 +730,14 @@ If all these conditions meet, the array is sorted and rotated*/
         int e=0;
         for(e=1;e<n;e++)
         {
-            while (cur_sum>sum && e<n)          //clean previous window
+            while (cur_sum>sum && s<n-1)          //clean previous window
                 {cur_sum-=arr[s];s++;}
             if(cur_sum==sum)
-                {
-                    System.out.println("start: "+s+" end: "+(e-1));
-                    return true;
-                }
-            if(e<n)
+            {
+                System.out.println("start: "+s+" end: "+(e-1));
+                return true;
+            }
+            if(sum<cur_sum)
                 cur_sum+=arr[e];
         }
         System.out.println("start: "+s+" end: "+e);
@@ -788,7 +759,76 @@ If all these conditions meet, the array is sorted and rotated*/
         }
         System.out.println(op);
     }
+    public static void n_bonacci(int n,int k)
+    {
+        ArrayList<Integer> op=new ArrayList<>();
+        for(int i=0;i<n-1;i++)
+            op.add(0);
+        op.add(1);
+        int finSum=1;
+        for(int i=n;i<k+n;i++)
+        {
+            op.add(finSum);
+            finSum+=finSum;
+            finSum-=op.get(i-n);
+        }
+        System.out.println(op);
+    }
 
+    public static void minGroupFlip(int []binarr)
+    {
+        for(int i=1;i<binarr.length;i++)
+        {
+            if(binarr[i]!=binarr[i-1])
+            {
+                if(binarr[i]!=binarr[0])
+                    System.out.println("From: "+i);
+                else
+                    System.out.println("to: "+(i-1));
+            }
+        }
+        if(binarr[binarr.length-1]!=binarr[0])
+            System.out.println("to: "+(binarr.length-1));
+    }
+    public static int maxOcRange(int []a,int []b)  //maximum range value ==20
+    {
+        int[] arr =new int[20];
+        for(int i=0;i<a.length;i++)
+        {
+            arr[a[i]]++;
+            arr[b[i]+1]--;
+        }
+        int max=0;
+        int index=0;
+        for(int i=1;i<arr.length;i++)
+        {
+            arr[i]+=arr[i-1];
+            if(max<arr[i])
+            {
+                max=arr[i];
+                index=i;
+            }
+        }
+        return index;
+    }
+    public static boolean checkRotatedAndSortedNEW(int arr[], int n)
+    {
+        int inc=0;
+        if(arr[0]>=arr[n-1])
+        {
+            inc=1;
+            for(int i=1;i<n;i++)
+            {
+                if(arr[i]<arr[i-1])
+                    inc++;
+            }
+        }
+        else {
+            return false;
+        }
+        if(inc==2) return true;
+        return false;
+    }
     ///////////////////////////--- MAIN RUNNING----///////////////////////////////////////////////////////////////////////
     public static void main(String ...ss)
     {
@@ -825,6 +865,11 @@ If all these conditions meet, the array is sorted and rotated*/
         //prefixSum(new int[]{10,20,10,5,15});
         //System.out.println(checkRotatedAndSorted(new int[]{71 ,75, 75, 77, 89, 89, 92, 3, 11, 13, 24, 28, 33, 58, 61, 66},16));
         //System.out.println(subarraySum(new int[]{ 1,4,20,3,10,5},6,33));
-        nBonacci(4,10);
+        //nBonacci(4,10);
+        minGroupFlip(new int[]{1,1,0,0,1,1,1,0,0,1});
+        n_bonacci(3,5);
+        System.out.println(queryPrefix(new int[]{5,6,8,11,2,3},2,5));
+        System.out.println(equilibrium(new int[]{3,4,8,-9,20,6}));
+        System.out.println(maxOcRange(new int[]{1,2,3},new int[]{3,5,7}));
     }
 }

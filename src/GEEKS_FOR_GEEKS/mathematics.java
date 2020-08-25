@@ -112,10 +112,10 @@ public class mathematics
     }
     public static int exactly3Divisor(int n) // How many numbers in between 1-n having exactly 3 divisor
     {
-        int fCount=0;
+        int fCount=0;       //a number is having 3 divisor if the number is square of a prime number
         for(int i=2;i<=n;i++)
         {
-            if(isprime( Math.sqrt((double)i)))
+            if(isprime( Math.sqrt(i)))
                 fCount++;
         }
         return fCount;
