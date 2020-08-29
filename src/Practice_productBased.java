@@ -448,35 +448,35 @@ public class Practice_productBased
     }
     public static void main(String ...a)
     {
-        System.out.println("Sum of natural numbers-10: "+sumNrec(10));
-        System.out.println("Palindrome check - BcaiacB: "+isPalindrome("BcaiacB",0,7));
-        System.out.println("Sum of digits: "+sumOfDigits(55553));
-        System.out.println("MaxCuts: "+maxCuts(5,1,5,3));
-        System.out.println("Substring: ");
-        subsetString("abc","",0);
-        System.out.println();
-        //TOH(4,'A','B','C');
-        System.out.println("Max Difference: j-i: "+maxDiff(new int[]{55,3,10,5,9,21}));
-        System.out.println("Max consecutive 1s: "+maxCons1s(new int[]{1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1}));
-        System.out.println("Max Sum Subarray: "+maxSumSubarray(new int[]{-5,1,-2,3,-1,2,-2}));
-        System.out.println("Min Sum Subarray: "+minSumSubarray(new int[]{8,-4,3,-5,4}));
-        System.out.println("Circular Max Sum Subarray: "+maxCircularSumSubarray(new int[]{5,-2,3,4}));
-        System.out.println("Max Odd Even Subarray: "+maxEvenOdd(new int[]{2,3,4,5,6,7,8,9,2,3,4,5,6,7,8,9}));
-        System.out.println("Majority element in a array i.e > n/2: "+majorityElement(new int[]{8,8,6,6,6,4,6}));
-        System.out.println("Anagram by sort: "+isAnagram("apple","leapp"));
-        System.out.println("Anagram by o(n): "+isAnagramOn("apple","leapp"));
-        ff.put(0,920881302);
-        ff.put(1,970435252);
-        //System.out.println("Fib mod: "+fibonacciMod(920881302, 970435252, 891913774));
-        System.out.println("Super reduced string: "+superReducedString("aaabccddd"));
-        System.out.println("don: "+cookies(10,new int[]{1 ,1,1}));
-        System.out.println("Balanced bracket: "+isBalanced("{{[[(())]]}}"));
-        System.out.println(Math.max(-88,-26));
-        System.out.println("lARGEST RECTANGLE: "+largestRectangle(new int[]{1,4,3,5,7}));
-        System.out.println("divisible: "+(2%3==0));
-        System.out.println("Waiter: ");
-        for(int i:waiter(new int[]{3,3,4,4,9},2))
-            System.out.print(i+"- ");
+//        System.out.println("Sum of natural numbers-10: "+sumNrec(10));
+//        System.out.println("Palindrome check - BcaiacB: "+isPalindrome("BcaiacB",0,7));
+//        System.out.println("Sum of digits: "+sumOfDigits(55553));
+//        System.out.println("MaxCuts: "+maxCuts(5,1,5,3));
+//        System.out.println("Substring: ");
+//        subsetString("abc","",0);
+//        System.out.println();
+//        //TOH(4,'A','B','C');
+//        System.out.println("Max Difference: j-i: "+maxDiff(new int[]{55,3,10,5,9,21}));
+//        System.out.println("Max consecutive 1s: "+maxCons1s(new int[]{1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1}));
+//        System.out.println("Max Sum Subarray: "+maxSumSubarray(new int[]{-5,1,-2,3,-1,2,-2}));
+//        System.out.println("Min Sum Subarray: "+minSumSubarray(new int[]{8,-4,3,-5,4}));
+//        System.out.println("Circular Max Sum Subarray: "+maxCircularSumSubarray(new int[]{5,-2,3,4}));
+//        System.out.println("Max Odd Even Subarray: "+maxEvenOdd(new int[]{2,3,4,5,6,7,8,9,2,3,4,5,6,7,8,9}));
+//        System.out.println("Majority element in a array i.e > n/2: "+majorityElement(new int[]{8,8,6,6,6,4,6}));
+//        System.out.println("Anagram by sort: "+isAnagram("apple","leapp"));
+//        System.out.println("Anagram by o(n): "+isAnagramOn("apple","leapp"));
+//        ff.put(0,920881302);
+//        ff.put(1,970435252);
+//        //System.out.println("Fib mod: "+fibonacciMod(920881302, 970435252, 891913774));
+//        System.out.println("Super reduced string: "+superReducedString("aaabccddd"));
+//        System.out.println("don: "+cookies(10,new int[]{1 ,1,1}));
+//        System.out.println("Balanced bracket: "+isBalanced("{{[[(())]]}}"));
+//        System.out.println(Math.max(-88,-26));
+        System.out.println("lARGEST RECTANGLE: "+largestRectangle(new int[]{1,4,4,3,5,7}));
+//        System.out.println("divisible: "+(2%3==0));
+//        System.out.println("Waiter: ");
+//        for(int i:waiter(new int[]{3,3,4,4,9},2))
+//            System.out.print(i+"- ");
     }
 }
 /*

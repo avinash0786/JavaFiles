@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class sortingClass<p> {
+public class sortingClass {
     static void insert(int arr[], int n) {
         for (int i = 1; i < n; i++) {
             int key = arr[i];
@@ -577,23 +577,119 @@ public class sortingClass<p> {
         return res;
     }
 
+    public static void cycleSortDist(int[]arr)
+    {
+        for (int cs = 0; cs < arr.length - 1; cs++) {
+            int item=arr[cs];
+            int pos=cs;
+            for (int i = cs; i < arr.length; i++) {
+                if(arr[i]<item)
+                    pos++;
+            }
+            int t=arr[pos];
+            arr[pos]=item;
+            item=t;
+            while (pos!=cs){
+                pos=cs;
+                for (int i = cs+1; i < arr.length; i++) {
+                    if(arr[i]<item)
+                        pos++;
+                }
+                t=arr[pos];
+                arr[pos]=item;
+                item=t;
+            }
+        }
+        for (int i : arr) {
+            System.out.print(i+" ");
+        }
+    }
+    public static void countSort(int[]arr,int k)//When range of element is known i.e K
+    {
+        int []count=new int[k];
+        for (int i = 0; i < arr.length; i++) {
+            count[arr[i]]++;
+        }
+        for (int i = 1; i < k; i++) {
+            count[i]=count[i-1]+count[i];
+        }
+        int []output=new int[arr.length];
+        for (int i = arr.length-1; i >=0; i--) {
+            output[count[arr[i]]-1]=arr[i];
+            count[arr[i]]--;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            arr[i]=output[i];
+        }
+        for (int i : arr) {
+            System.out.print(i+" ");
+        }
+    }
+    public static void radixSort(int []arr)
+    {
+        int max=arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            max=Math.max(arr[i],max);
+        }
+        for (int exp = 1; max/exp>0; exp*=10) {  //exp: 1,10,100,1000...
+            countModSort(arr,arr.length,exp);//if max is 3 digit for loops 3 times
+            System.out.println();
+            for (int i : arr) {
+                System.out.print(i+" ");
+            }
+            System.out.println();
+            System.out.println("-------------------------");
+        }
+    }
+    public static void countModSort(int[]arr,int n,int exp)
+    {
+        int []count=new int[10];
+        for (int i = 0; i < n; i++) {
+            count[(arr[i]/exp)%10]++;
+        }
+        System.out.print("Count: ");
+        for (int i : count) {
+            System.out.print(i+" ");
+        }
+        for (int i = 1; i < 10; i++) {
+            count[i]=count[i]+count[i-1];
+        }
+        System.out.println();
+        System.out.print("Count Up: ");
+        for (int i : count) {
+            System.out.print(i+" ");
+        }
+        int []output=new int[n];
+        for (int i = n-1; i >=0 ; i--) {
+            output[count[(arr[i]/exp)%10]-1]=arr[i];
+            count[(arr[i]/exp)%10]--;
+        }
+        for (int i = 0; i < n; i++) {
+            arr[i]=output[i];
+        }
+    }
+
     public static void main(String... a) {
-        //insert(new int[]{7 ,72, 90, 21, 60},5);
+//        radixSort(new int[]{319,212,6,8,100,50});
+
+//        countSort(new int[]{1,4,4,1,0,1},5);
+//        cycleSortDist(new int[]{2,5,6,4,8,9,3});
+//        insert(new int[]{7 ,72, 90, 21, 60},5);
         //sortedMerge(new int[]{1,3,5,8,9,12,56,76,98},new int[]{2,4,5,6,7,10,11,99,101,111,222,333});
-        //merge(new int[]{1,3,5,8,9,12,56,76,98},new int[]{2,4,5,6,7,10,11,99,101,111,222,333});
+//        merge(new int[]{1,3,5,8,9,12,56,76,98},new int[]{2,4,5,6,7,10,11,99,101,111,222,333});
         //mergeSort(new int[]{10,5,20,15,30,45,6},0,6);
-        //intersection(new int[]{2,5,8,13,15},new int[]{1,2,5,13,15});
-        //union(new int[]{2,5,8,13,15},new int[]{1,2,5,13,15});
-        //System.out.println(countInv(new int[]{2,5,8,11,3,6,9,13},0,7));
-        //partitionLomuto(new int[]{10,80,30,42,22,65,50},0,6,6);
-        //System.out.println(partitinHores(new int[]{7,5,1,3,9,4,8},0,6,0));
+//        intersection(new int[]{2,5,8,13,15},new int[]{1,2,5,13,15});
+//        union(new int[]{2,5,8,13,15},new int[]{1,2,5,13,15});
+//        System.out.println(countInv(new int[]{2,5,8,11,3,6,9,13},0,7));
+//        partitionLomuto(new int[]{10,80,30,42,22,65,50},0,6,6);
+//        System.out.println(partitinHores(new int[]{7,5,1,3,9,4,8},0,6,0));
 //        int []arr=new int[]{8,4,7,9,3,10,5};
 //        qSortLom(arr,0,6);
 //        System.out.println("Sorted: ");
 //        for (int i : arr) {
 //            System.out.print(i+" ");
 //        }
-        //System.out.println(chocDist(new int[]{3,4,1,9,56,7,9,12},5));
+        System.out.println(chocDist(new int[]{3,4,1,9,56,7,9,12},5));
 //        segPosNeg(new int[]{2,-3,5,-9,6,-7,-4,-5});
 //        segEvenOdd(new int[]{1,5,6,8,3,4,9,6,7,2,5,13,15});
 //        segOneZero(new int[]{1,0,1,0,0,1,1,0,1,1,1,0,0,0,0,1});

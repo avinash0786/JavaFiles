@@ -552,6 +552,7 @@ public class searchingChapter
     }
     public static boolean possiblePage(int []arr, int n, int mid, int stu)
     {
+        System.out.println("fn call Mid: "+mid);
         int student=1;
         int curPage=0;
         for(int i=0;i<n;i++)
@@ -560,10 +561,12 @@ public class searchingChapter
             {
                 curPage=arr[i];
                 student++;
+                System.out.println("Cur page: "+curPage+" stu: "+stu);
                 if(student>stu)
                     return false;
             }
             else curPage+=arr[i];
+            System.out.println("Outer Val:"+arr[i]+" Cursum: "+curPage+" i: "+i);
         }
         return true;
     }
@@ -580,10 +583,12 @@ public class searchingChapter
         while (low<=high)
         {
             mid=(low+high)/2;
+            System.out.println("Low: "+low+" Mid: "+mid+" high: "+high);
             if(possiblePage(a,n,mid,m))
             {
                 ans=mid;
                 high=mid-1;
+                System.out.println("Possible- high: "+high+" Ans: "+ans);
             }
             else {
                 low=mid+1;
@@ -605,19 +610,19 @@ public class searchingChapter
         //repeated(new int[]{3,1,3,3,2});
         //sortedOccurence(new int[]{5,6,7,10 ,20, 20, 20, 20, 20,20,25,25,25,30,50},25);
         //System.out.println(findFloor(new long[]{1 ,2 ,8, 10, 11, 12, 19},0,6,5));
-
-        System.out.println(leftIndexIter(new int[]{1,10,10,10,20,20,30,30},10));
-        System.out.println(sqFloor(10));
-        System.out.println(sortRotSearch(new int[]{10,20,40,60,4,5,8},4));
-        System.out.println(peakEle(new int[]{2,20,40,30,20,50,60}));
-        System.out.println("Pair sum: "+pairSum(new int[]{3,4,8,9,11,12,20,30},23));
-        System.out.println("Triplet sum: "+tripletSum(new int[]{2,3,4,8,9,20,40},32));
-        System.out.println("Median: "+getMedian(new int[]{1,2,3,4},new int[]{11,12,13,14}));
-        System.out.println("Sorted rot min: "+minNumber(new int[]{10,20,30,40,5,6,9},0,6));
-        System.out.println(findRepeating(new Integer[]{1,2,3,3,4},5));
-        System.out.println(countOccurence(new int[]{3, 1, 2, 2, 1, 2, 3, 3},8,4));
-        subarraySum(10,15,new int[]{1, 2,1,1,1,1,1,1,1,1});
-
+//
+//        System.out.println(leftIndexIter(new int[]{1,10,10,10,20,20,30,30},10));
+//        System.out.println(sqFloor(10));
+//        System.out.println(sortRotSearch(new int[]{10,20,40,60,4,5,8},4));
+//        System.out.println(peakEle(new int[]{2,20,40,30,20,50,60}));
+//        System.out.println("Pair sum: "+pairSum(new int[]{3,4,8,9,11,12,20,30},23));
+//        System.out.println("Triplet sum: "+tripletSum(new int[]{2,3,4,8,9,20,40},32));
+//        System.out.println("Median: "+getMedian(new int[]{1,2,3,4},new int[]{11,12,13,14}));
+//        System.out.println("Sorted rot min: "+minNumber(new int[]{10,20,30,40,5,6,9},0,6));
+//        System.out.println(findRepeating(new Integer[]{1,2,3,3,4},5));
+//        System.out.println(countOccurence(new int[]{3, 1, 2, 2, 1, 2, 3, 3},8,4));
+//        subarraySum(10,20,new int[]{1, 2,3,5,6,2,4,8,9,3});
+        System.out.println(findPages(new int[]{12,34,67,90},4,2));
     }
     /*
     1. Count pair with a given sum

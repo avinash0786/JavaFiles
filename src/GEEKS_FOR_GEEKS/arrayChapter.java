@@ -312,14 +312,14 @@ public class arrayChapter
         for(int i=n-2;i>-1;i--)
         {
             int lar=out.get(0);
-            //System.out.println("arr-val: "+arr[i]+" Largest val  : "+lar);
+            System.out.println("arr-val: "+arr[i]+" Largest val  : "+lar);
             if(arr[i]>=lar)
             {
-                //System.out.println("adding: "+arr[i]+" new out: "+out);
                 out.add(0,arr[i]);
+                System.out.println("adding: "+arr[i]+" new out: "+out);
             }
-            //System.out.println("IN= Start arraylist: "+out+" size: "+out.size()+" Largest val  : "+out.get(0));
-            //.out.println("---------------------------------------");
+            System.out.println("IN= Start arraylist: "+out+" size: "+out.size()+" Largest val  : "+out.get(0));
+            System.out.println("---------------------------------------");
         }
         return out;
     }
@@ -506,24 +506,20 @@ public class arrayChapter
             // comparing present element to the next element.
             while ((i < n-1) && (price[i+1] <= price[i]))
                 i++;
-
             // If we reached the end, break as no further solution possible
             if (i == n-1)
                 break;
-
             // Store the index of minima
             sol.add(i++);
-
             // Find Local Maxima.  Note that the limit is (n-1) as we are
             // comparing to previous element
             while ((i < n) && (price[i] >= price[i-1]))
                 i++;
-
             // Store the index of maxima
             sol.add(i-1);
-
             // Increment count of buy/sell pairs
             count++;
+            System.out.println(sol);
         }
         if(count==0)
         {
@@ -704,6 +700,10 @@ If all these conditions meet, the array is sorted and rotated*/
     {
         for(int i=1;i<arr.length;i++)
             arr[i]+=arr[i-1];
+        for (int i : arr) {
+            System.out.print(i+" ");
+        }
+        System.out.println();
         return arr;
     }
     public static int queryPrefix(int []arr,int s,int e)
@@ -798,6 +798,9 @@ If all these conditions meet, the array is sorted and rotated*/
             arr[a[i]]++;
             arr[b[i]+1]--;
         }
+        for (int i : arr) {
+            System.out.print(i+" ");
+        }
         int max=0;
         int index=0;
         for(int i=1;i<arr.length;i++)
@@ -851,25 +854,26 @@ If all these conditions meet, the array is sorted and rotated*/
         //System.out.println(maxOccured(new int[]{1 ,5 ,9 ,13 ,21},new int[]{15 ,8 ,12 ,20 ,30},5,30));
         //convertToWave(new int[]{2, 4 ,7 ,8, 9, 10},6);
         //printFrequency(new int[]{2 ,3, 2, 3, 5},5);
-        //System.out.println(equilibriumPoint(new long[]{1 ,3 ,5 ,2 ,2},5));
-        //System.out.println(leaders(new int[]{16, 17, 4, 3, 5, 2},6));
-        //System.out.println(missingNumber(new int[]{1 ,2, 3, 4, 5},5));
+//        System.out.println(equilibriumPoint(new long[]{1 ,3 ,5 ,2 ,2},5));
+//        System.out.println(leaders(new int[]{16, 17, 4, 3, 5, 2},6));
+//        System.out.println(missingNumber(new int[]{0,-10,1,3,-20},5));
         //rearrange(new int[]{10 ,20, 30, 40, 50, 60, 70, 80, 90, 100, 110},11);
         //arrange(new long[]{10 ,20, 30, 40, 50, 60, 70, 80, 90, 100, 110},11);
-        //System.out.println(trappingWater(new int[]{5,0,6,2,3},5));
-        //stockBuySell(new int[]{71, 94, 70, 74, 55, 51, 33, 37, 65, 36, 50, 89, 17, 55, 65},15);
+//        System.out.println(trappingWater(new int[]{3,0,0,2,0,4},6));
+//        stockBuySell(new int[]{71, 94, 70, 74, 55, 51, 33, 37, },8);
         //      (0 3) (5 6) (9 10) (11 13) (14 15)
+//        System.out.println(maxSubarraySum(new int[]{-5,1,-2,3,-1,2,-2},6));
         //System.out.println(consecOnes(new int[]{1,0,1,1,1,1,0,0,1,1}));
         //System.out.println(circularSubarraySum(new int []{8 ,-8 ,9 ,-9, 10, -11, 12},7));
-        //System.out.println(slidingMaxSum(new int []{ 1,8,30,-5,20,7},3));
-        //prefixSum(new int[]{10,20,10,5,15});
+//        System.out.println(slidingMaxSum(new int []{ 1,8,30,-5,20,7},3));
+//        prefixSum(new int[]{10,20,10,5,15});
         //System.out.println(checkRotatedAndSorted(new int[]{71 ,75, 75, 77, 89, 89, 92, 3, 11, 13, 24, 28, 33, 58, 61, 66},16));
         //System.out.println(subarraySum(new int[]{ 1,4,20,3,10,5},6,33));
-        //nBonacci(4,10);
+//        nBonacci(4,10);
         minGroupFlip(new int[]{1,1,0,0,1,1,1,0,0,1});
-        n_bonacci(3,5);
-        System.out.println(queryPrefix(new int[]{5,6,8,11,2,3},2,5));
-        System.out.println(equilibrium(new int[]{3,4,8,-9,20,6}));
-        System.out.println(maxOcRange(new int[]{1,2,3},new int[]{3,5,7}));
+//        n_bonacci(3,5);
+//        System.out.println(queryPrefix(new int[]{5,6,8,11,2,3},2,5));
+//        System.out.println(equilibrium(new int[]{3,4,8,-9,20,6}));
+//        System.out.println(maxOcRange(new int[]{1,2,3},new int[]{3,5,7}));
     }
 }
