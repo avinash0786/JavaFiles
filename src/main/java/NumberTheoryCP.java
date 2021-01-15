@@ -1,11 +1,10 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
-import java.util.Scanner;
 
 public class NumberTheoryCP {
     //Binary Exponentiation:- to calculate a^n in O(log n)
+
     public static int power(int a,int n){
         int result=1;
         while (n>0){
@@ -99,12 +98,9 @@ public class NumberTheoryCP {
     public static int eulerTotient(int n){  //logic: phi(N)= N - number of integer not coprime with N
         int result=n;
         for (int i = 2; i*i <= n; i++) {
-            System.out.println("Res: "+result+" i: "+i+" n: "+n);
             if (n%i==0){
-                System.out.println("N: "+n);
                 while (n%i==0)
                     n/=i;
-                System.out.println("N is: "+n+" Dec result by: "+result/n);
                 result -=result/i;
             }
         }
@@ -112,12 +108,30 @@ public class NumberTheoryCP {
             result -=result/n;
         return result;
     }
+    //        Arrays.setAll(arr, i -> i+2); // The array becomes {2, 3, 4 }
+
+    static int[]phiArray=new int[100];
+    public static void phiN(){
+//        int[] phi=new int[n+1];
+        Arrays.setAll(phiArray,i->i);
+        for (int i =2; i <=phiArray.length-5; i++) {
+            if (phiArray[i]==i){
+                for (int j = i; j <=phiArray.length-5 ; j+=i) {
+                    phiArray[j]=phiArray[j]/i;
+                    phiArray[j]=phiArray[j]*(i-1);
+                    //phi[j]-=phi[j]/i;   ONE LINE
+                }
+            }
+        }
+//        System.out.println(Arrays.toString(phiArray));
+    }
     public static void phiOnetoN(int n){    //in O(nlogn) using Divisior sum property
         int []phi=new int[n+1];
         phi[0]=0;
         phi[1]=1;
-        for (int i = 2; i <=n; i++)
-            phi[i]=i-1;
+//        for (int i = 2; i <=n; i++)
+//            phi[i]=i-1;
+        Arrays.setAll(phi,i->i);
         for (int i = 2; i <=n; i++) {
             for (int j = i*2; j <=n; j+=i) {
                 phi[j]=phi[j]-phi[i];
@@ -175,6 +189,7 @@ public class NumberTheoryCP {
         }
     }
     public static int gcdSum(int N){
+        phiN();
         int res=0;
         for (int i = 1; i*i <=N; i++) {
             if (N%i==0){
@@ -191,8 +206,7 @@ public class NumberTheoryCP {
     }
 
     private static int getCount(int d, int n) {
-        //return phi[n/d]  calculete phi array to access the value
-        return 0;
+        return phiArray[n/d];
     }
 
     public static boolean isPrime(int n){   //trial divison
@@ -216,17 +230,77 @@ public class NumberTheoryCP {
         }
         return true;
     }
+    public static void divisors(int n){
+        ArrayList<Integer> op=new ArrayList<>();
+        for (int i = 1; i*i <=n; i++) {
+            if (n%i==0){
+                op.add(i);
+                if (i!=n/i)
+                    op.add(n/i);
+            }
+        }
+        System.out.println(op);
+    }
+    public static void divisorsEffic(int n){
+        ArrayList<Integer> op=new ArrayList<>();
+        int i;
+        for (i = 1; i*i<n; i++) {
+            if (n%i==0)
+                op.add(i);
+        }
+        i--;
+        for (   ; i>=1; i--) {
+            if (n%i==0) {
+                op.add(n / i);
+            }        }
+        System.out.println(op);
+    }
+
+    public static int trailingZero(int n){  //trailing zeros in factorial
+        int res=0;
+        for (int i = 5; i <=n; i*=5) {
+            res+=n/i;
+        }
+        return res;
+    }
+    //  0   1   2   3
+    //  x   y   x1  y1
+    public static int extendedEuclid(int a, int b){
+        return 0;
+    }
+
+    public static int catalan(int n){
+        int[] Cat=new int[n+1];
+        Cat[0]=Cat[1]=1;
+        for (int i =2; i <=n; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.println(Arrays.toString(Cat));
+                Cat[i]+=Cat[j]*Cat[i-j-1];
+            }
+        }
+        System.out.println(Arrays.toString(Cat));
+        return Cat[n];
+    }
     public static void main(String[] args) {
+        System.out.println("GCD sum: "+gcdSum(12));
+        System.out.println("Catalan 4: "+catalan(4));
+//        phiN(10);
+//        int[]tem=new int[4];
+//        int d=extendedEuclid(81,57,tem);
+//        System.out.printf("Solution of %dx + %dy = %d is x= %d , y= %d ",81,57,d,tem[2],tem[3]);
 //        System.out.println(Long.MAX_VALUE);
-        Scanner inp=new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+//        System.out.println();
+//        divisorsEffic(90);
+//        System.out.println(trailingZero(251));
+//        Scanner inp=new Scanner(new BufferedReader(new InputStreamReader(System.in)));
 //        System.out.println(modGcd(10,1,1));
 //        System.out.println(power(2,5));
-//        System.out.println(gcd(9,10));
+//        System.out.println(gcd(10,10));
 //        System.out.println(lcm(12,24));
 //        seivePrime(300);
 //        primeFactor(36);
 //        wheelFactorisation(56);
-        System.out.println(eulerTotient(10));
+//        System.out.println(eulerTotient(10));
 //        phiOnetoN(7);
 //        System.out.println(moduloMulInv(2,5));
 //        calaulateFact();

@@ -16,7 +16,7 @@ public class bigDecimalBook {
         System.out.println("add: "+a.add(bb));
         System.out.println("sub: "+aa.subtract(bb));
         System.out.println("mul: "+aa.multiply(bb));
-        ///Equivalent to result = a / b (Upto 10 Decimal places and Round HALF_UP)
+        ///Equivalent to result = a / b (Upto 10 ,Decimal places and Round HALF_UP)
         System.out.println("div: "+aa.divide(bb,10, RoundingMode.HALF_UP));
         /*
         Division is a bit more complicated than the other arithmetic operations,
