@@ -1,8 +1,6 @@
 package GEEKS_FOR_GEEKS;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class treeLearn {
     public static void main(String[] args) {
@@ -270,4 +268,182 @@ class nodeTree{
         res=Math.max(res,1+lh+rh);
         return 1+Math.max(lh,rh);
     }
+
+    public List<Integer> iterInorder(nodeTree root){
+        List<Integer> op=new LinkedList<>();
+        Stack<nodeTree> stk=new Stack<>();
+         nodeTree  curr=root;
+         while (curr!=null || stk.size()>0){
+             while (curr!=null){
+                 stk.push(curr);
+                 curr=curr.left;
+             }
+             curr=stk.pop();
+             op.add(curr.data);
+             curr=curr.right;
+         }
+         return op;
+    }
+    public List<Integer> iterPreorder(nodeTree root){
+        List<Integer> op=new LinkedList<>();
+        Stack<nodeTree> stk=new Stack<>();
+        stk.push(root);
+        while (!stk.isEmpty()){
+            nodeTree curr=stk.pop();
+            op.add(curr.data);
+            if (curr.right!=null)
+                stk.push(curr.right);
+            if (curr.left!=null)
+                stk.push(curr.left);
+        }
+        return op;
+    }
+    public List<Integer> iterPreorderSpaceOpt(nodeTree root){   //Iterative preorder space optimized
+        List<Integer> op=new LinkedList<>();
+        Stack<nodeTree> stk=new Stack<>();
+        nodeTree curr=root;
+        while (curr!=null ||!stk.isEmpty()){
+            while (curr!=null){
+                op.add(curr.data);
+                if (curr.right!=null)
+                    stk.push(curr.right);
+                curr=curr.left;
+            }
+            if (!stk.isEmpty())
+                curr=stk.pop();
+        }
+        return op;
+    }
+    public List<Integer> iterPostorder(nodeTree root){   //Iterative preorder space optimized
+        List<Integer> op=new LinkedList<>();
+        Stack<nodeTree> stk1=new Stack<>();
+        Stack<nodeTree> stk2=new Stack<>();
+        stk1.push(root);
+        while (!stk1.isEmpty()){
+            nodeTree curr=stk1.pop();
+            stk2.push(curr);
+
+            if (curr.left!=null)
+                stk1.push(curr.left);
+            if (curr.right!=null)
+                stk1.push(curr.right);
+        }
+        while (!stk2.isEmpty())
+            op.add(stk2.pop().data);
+        return op;
+    }
+
+    boolean findPath(nodeTree root, ArrayList<Integer> path,int n){
+        if (root==null)
+            return false;
+        path.add(root.data);
+        if (root.data==n)
+            return true;
+        if (findPath(root.left,path,n) || findPath(root.right,path,n))
+            return true;
+        path.remove(path.size()-1);
+        return false;
+    }
+    int LCANaive(nodeTree root,int n1,int n2){
+        ArrayList<Integer> path1=new ArrayList<>();
+        ArrayList<Integer> path2=new ArrayList<>();
+        if (!findPath(root, path1, n1) || !findPath(root,path2,n2))
+            return -1;
+        for (int i = 0; i <path1.size()-1 && i<path2.size()-1; i++) {
+            if (!path1.get(i + 1).equals(path2.get(i + 1)))
+                return path1.get(i);
+        }
+        return -1;
+    }
+    nodeTree LCA(nodeTree root, int n1, int n2){    //Assumes n1 and n2 to exist in tree
+        if (root==null)
+            return null;
+        if (root.data==n1 || root.data==n2)
+            return root;
+        nodeTree lca1=LCA(root.left,n1,n2);
+        nodeTree lca2=LCA(root.right,n1,n2);
+        if (lca1!=null && lca2!=null)
+            return root;
+        if (lca1!=null)
+            return lca1;
+        else
+            return lca2;
+    }
+
+    int result=0;
+    int burnTime(nodeTree root,int leaf,distance dist){
+        if (root==null)
+            return 0;
+        if (root.data==leaf){
+            dist.val=0;
+            return 1;
+        }
+        distance lDist=new distance(-1);
+        distance rDist=new distance(-1);
+        int lh=burnTime(root.left,leaf,lDist);
+        int rh=burnTime(root.right,leaf,rDist);
+
+        if (lDist.val!=-1){
+            dist.val=lDist.val+1;
+            result=Math.max(result,rh+dist.val);
+        }
+        else if (rDist.val!=-1){
+            dist.val=rDist.val+1;
+            result=Math.max(result, dist.val+lh);
+        }
+        return Math.max(lh,rh)+1;
+    }
+    int countNodes(nodeTree root){  //  O(n)
+        if (root==null)
+            return 0;
+        else
+            return 1+countNodes(root.left)+countNodes(root.right);
+    }
+    int cntNodeEfic(nodeTree root){
+        int lh=0,rh=0;
+        nodeTree cur=root;
+        while (cur!=null){
+            lh++;
+            cur=cur.left;
+        }
+        cur=root;
+        while (cur!=null){
+            rh++;
+            cur=cur.right;
+        }
+        if (lh==rh)
+            return (int) (Math.pow(2,lh)-1);
+        return
+                1+cntNodeEfic(root.left)+cntNodeEfic(root.right);
+    }
+
+    static final int EMPTY=-1;
+    void serialize(nodeTree root,ArrayList<Integer> arr){
+        if (root==null){
+            arr.add(EMPTY);
+            return;
+        }
+        arr.add(root.data);
+        serialize(root.left,arr);
+        serialize(root.right,arr);
+    }
+    int index=0;
+    nodeTree deSerialize(ArrayList<Integer> arr){
+        if (index==arr.size())
+            return null;
+        int val=arr.get(index);
+        index++;
+        if (val==EMPTY)
+            return null;
+        nodeTree root=new nodeTree(val);
+        root.left=deSerialize(arr);
+        root.right=deSerialize(arr);
+        return root;
+    }
+
+
+}
+class distance{
+    int val;
+    distance(int d){this.val=d;}
 }

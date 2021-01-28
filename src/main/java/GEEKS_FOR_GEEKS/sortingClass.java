@@ -324,12 +324,10 @@ public class sortingClass {
     }
     public static void qSortLomTail(int []arr,int l,int h)// Tail call elemination in QuickSort
     {
-        begin:
-        if(l<h)
-        {
-            int p=partitinHores(arr,l,h,l);
-            qSortLom(arr,l,p);
-            l=p+1;
+        if (l < h) {
+            int p = partitinHores(arr, l, h, l);
+            qSortLom(arr, l, p);
+            l = p + 1;
         }
     }
     public static int kSmallest(int []arr,int k)
