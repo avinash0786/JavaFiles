@@ -124,6 +124,7 @@ class nodeTree{
         else
             return Math.max(root.data,Math.max(getMax(root.left),getMax(root.right)));
     }
+
     int maxLevel=0;
     void printLeftView(nodeTree root,int level){
         if (root==null)
@@ -246,7 +247,7 @@ class nodeTree{
     while both the stack are not empty
         while s1 is not empty
             take out one by one , print it
-            push chidren of taken out node in s2 if exists
+            push children of taken out node in s2 if exists
         while s2 is not empty
             take out one by one , print it
             push its children in s1 in reverse order first right then left chile if exist
@@ -440,8 +441,6 @@ class nodeTree{
         root.right=deSerialize(arr);
         return root;
     }
-
-
 }
 class distance{
     int val;

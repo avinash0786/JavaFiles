@@ -90,7 +90,7 @@ public class collectionsJavaLearn {
         map2.computeIfAbsent("King",v->map2.get("Jhon")+5); //Computes only when the key is not present
         map2.computeIfAbsent("Queen",v->map2.get("Jhon")+5);
         System.out.println(map2);
-
+//        Collections.sort(map2,(o1,o2)->o1.compareTo(o2));
         map2.computeIfPresent("Shane",(k,v)->map2.get("Jhon")+v);   //Computes only if the key is present
         System.out.println(map2);
         map2.compute("King",(k,v)->v+25);
@@ -100,14 +100,22 @@ public class collectionsJavaLearn {
             System.out.printf("%s : %dn\n",entry.getKey(),entry.getValue());
         }
     }
-    TreeSet<Person> treeSet = new TreeSet<>((personA, personB) -> Integer.compare(personA.getId(),
-            personB.getId()));
-    TreeSet<Person> treeSet1 = new TreeSet<>(new Comparator<Person>(){
-        @Override
-        public int compare(Person personA, Person personB) {
-            return Integer.compare(personA.getId(), personB.getId());
-        }
-    });
+    TreeSet<Person> treeSet = new TreeSet<>(Comparator.comparingInt(Person::getId));
+
+//    TreeSet<Person> treeSet = new TreeSet<>((personA, personB) -> Integer.compare(personA.getId(),
+//            personB.getId()));
+    TreeSet<Person> treeSet1 = new TreeSet<>(Comparator.comparingInt(Person::getId));
+
+//    TreeSet<Person> treeSet1 = new TreeSet<>((personA, personB) -> Integer.compare(personA.getId(), personB.getId()));
+
+
+//    TreeSet<Person> treeSet1 = new TreeSet<>(new Comparator<Person>(){
+//        @Override
+//        public int compare(Person personA, Person personB) {
+//            return Integer.compare(personA.getId(), personB.getId());
+//        }
+//    });
+
     /*
     //Lambda
     Collections.sort(people, (p1, p2) -> { //Legal

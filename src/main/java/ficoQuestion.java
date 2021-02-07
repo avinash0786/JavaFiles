@@ -68,9 +68,8 @@ public class ficoQuestion {
         }
         System.out.println(fin);
         // Create a list from elements of HashMap
-        List<Map.Entry<String, Integer> > list =
-                new LinkedList<Map.Entry<String, Integer> >(fin.entrySet());
-
+        List<Map.Entry<String, Integer> > list = new LinkedList<Map.Entry<String, Integer> >(fin.entrySet());
+        System.out.println(list);
         // Sort the list
 //        Collections.sort(list, (o1, o2) -> (o1.getValue()).compareTo(o2.getValue()));
 
@@ -104,9 +103,78 @@ public class ficoQuestion {
     }
     // Win: 3 pts
     // draw: 1 each point
+
+
+    public static void chunk(String str,int limit){
+        String[] splitted=str.split(" ");
+        int[] lengths=new int[splitted.length];
+        for (int i = 0; i < splitted.length; i++) {
+            lengths[i]=splitted[i].length();
+        }
+
+        int maxChunk=0;
+        int counter=0;
+        //      [1/2]: apple is red
+        int next=10;
+        int maxChkVal=1;
+        for (int i = 0; i < splitted.length && counter<splitted.length; i++) {
+            if (i==next){
+                maxChkVal++;
+                next=next*10;
+                i=-1;
+                counter=0;
+                continue;
+            }
+            int extra=numLen(i)+maxChkVal+5;
+            int curlen=extra;
+            while (curlen<=limit){
+                curlen+=lengths[counter]+1;
+                if (curlen-1>limit){
+                    break;
+                }
+                counter++;
+                if (counter>=splitted.length)
+                    break;
+            }
+            maxChunk=i;
+        }
+
+        counter=0;
+
+        System.out.println(Arrays.toString(splitted));
+
+        for (int i = 1; i <=maxChunk && counter<splitted.length; i++) {
+            String out="["+(i)+"/"+maxChunk+"]: ";
+            int extra=numLen(i)+numLen(maxChkVal)+5;
+            int curlen=extra;
+            while (curlen<=limit){
+                curlen+=lengths[counter]+1;
+                if (curlen-1>limit){
+                    break;
+                }
+                out+=splitted[counter]+" ";
+                counter++;
+                if (counter>=splitted.length)
+                    break;
+            }
+            System.out.println(out.trim());
+        }
+    }
+    public static int numLen(int n){
+        if (n>999)
+            return 4;
+        else if (n>99)
+            return 3;
+        else if (n>9)
+            return 2;
+        else
+            return 1;
+    }
+
     public static void main(String[] args) {
+        chunk("Dear Student, if you have attended the complete Informatica Webinar starting at 2:45 pm Deadline to fill this form: before 11:00 pm",20);
         String[] matches={"Liverpool 3:2 Psg","Redstar 0:0 Napoli","Psg 6:1 Redstar","Napoli 1:0 Liverpool"};
-        scoreBoard(matches);
+//        scoreBoard(matches);
 //        System.out.println(lineUp("LLARL"));
     }
 }
