@@ -164,7 +164,7 @@ class linkedList{
         curr.next=prev;
         return reverseRec(next,curr);
     }
-    //Reverse a liinked list in group
+    //Reverse a linked list in group
     node reverseK(node head,int k){
         node curr=head,next=null,prev=null;
         int count=0;

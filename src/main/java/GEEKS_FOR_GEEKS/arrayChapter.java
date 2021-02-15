@@ -74,8 +74,7 @@ public class arrayChapter
         int low=0;
         int high=a.length-1;
         System.out.println("Array: ");
-        for(int i:a)
-            System.out.print(i+" ");
+
         while (low<high)
         {
             int t=a[high];
@@ -274,7 +273,7 @@ public class arrayChapter
     }
     public static void  printFrequency(int arr[], int n)
     {
-        int stor[]=new int[n+1];          //2 ,3, 2, 3, 5
+        int[] stor =new int[n+1];          //2 ,3, 2, 3, 5
         for(int i=0;i<n;i++)
         {
             int num=arr[i];

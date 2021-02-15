@@ -60,6 +60,28 @@ public class NumberTheoryCP {
         }
         System.out.println(primes);
     }
+    public static void genPrimes(int n, ArrayList<Integer> primes){
+        boolean[] arr=new boolean[n+1]; //  setting all nos prime first
+        arr[0]=true;
+        arr[1]=true;    //  setting 0 & 1 as non-prime/ composite
+        /*
+        if 2 is a prime no then 4,6,8,10  will no be prime as they are multiple of 2
+        lly, 3 is a prime then 9,12,15,18 will not be prime
+         */
+        for (int i = 2; i*i<=n ; i++) {
+            if (!arr[i]){
+//                System.out.println("i: "+i+"*****");
+                for (int j = i*i; j <=n ; j+=i) {
+//                    System.out.println("j: "+j);
+                    arr[j]=true;
+                }
+            }
+        }
+        for (int i = 2; i <=n ; i++) {
+            if (!arr[i])
+                primes.add(i);
+        }
+    }
     public static void primeFactor(int n){
         ArrayList<Integer> op=new ArrayList<>();
         for (int i = 2; i*i <= n; i++) {
@@ -281,9 +303,35 @@ public class NumberTheoryCP {
         System.out.println(Arrays.toString(Cat));
         return Cat[n];
     }
+    public static void genPermutation(String digits,int i,int index,int cur,ArrayList<Integer> op,int lev,ArrayList<Integer> fin, int k){
+        if (index>lev)
+            return;
+        cur=cur*10+Integer.parseInt(String.valueOf(digits.charAt(i)));
+        op.add(cur);
+        if (cur%k==0)
+            fin.add(cur);
+//        System.out.println("Cur: "+cur);
+        genPermutation(digits,0,index+1,cur,op,lev,fin,k);
+        genPermutation(digits,1,index+1,cur,op,lev,fin,k);
+        genPermutation(digits,2,index+1,cur,op,lev,fin,k);
+    }
     public static void main(String[] args) {
-        System.out.println("GCD sum: "+gcdSum(12));
-        System.out.println("Catalan 4: "+catalan(4));
+        ArrayList<Integer> op=new ArrayList<>();
+        ArrayList<Integer> fin=new ArrayList<>();
+        ArrayList<Integer> primes=new ArrayList<>();
+        genPrimes(100,primes);
+        System.out.println(primes);
+//        BigDecimal t= BigDecimal.valueOf(System.currentTimeMillis());
+//        genPermutation("456",0,0,0,op,1,fin,2);
+//        genPermutation("456",1,0,0,op,1,fin,2);
+//        genPermutation("456",2,0,0,op,1,fin,2);
+//        Collections.sort(op);
+//        Collections.sort(fin);
+//        System.out.println(op);
+//        System.out.println(fin);
+//        System.out.println("Exec time: "+(BigDecimal.valueOf(System.currentTimeMillis()).subtract(t)));
+//        System.out.println("GCD sum: "+gcdSum(12));
+//        System.out.println("Catalan 4: "+catalan(4));
 //        phiN(10);
 //        int[]tem=new int[4];
 //        int d=extendedEuclid(81,57,tem);
