@@ -5,6 +5,37 @@ import java.util.HashSet;
 public class linkedListGFGclass
 {
     public static void main(String[] args) {
+        linkedList fir=new linkedList();
+        fir.insertEnd(12);
+        fir.insertEnd(10);
+        fir.insertEnd(9);
+        fir.insertEnd(7);
+        fir.traverse();
+        System.out.println("Lenght: "+fir.getLength());
+        linkedList inp=new linkedList();
+        inp.insertStart(7);
+        inp.insertStart(6);
+        inp.insertStart(5);
+        inp.insertStart(4);
+        inp.insertStart(3);
+        inp.insertStart(2);
+        inp.insertStart(1);
+        inp.traverse();
+        inp.middleLinkedList();
+
+        inp.rearrange();
+
+        linkedList inp2=new linkedList();
+        inp2.insertStart(6);
+        inp2.insertStart(5);
+        inp2.insertStart(4);
+        inp2.insertStart(3);
+        inp2.insertStart(2);
+        inp2.insertStart(1);
+        System.out.println("------------------------");
+        inp2.traverse();
+        inp2.middleLinkedList();
+        inp2.rearrange();
 //        linkedList first=new linkedList();
 //        first.insertStart(23);
 //        first.insertStart(12);
@@ -19,6 +50,8 @@ public class linkedListGFGclass
 //        first.traverse();
 //        LRUcacheInplm(new int[]{10,20,10,30,40,50,30,40,60,30},4);
     }
+
+
     // LRU(least recent use)  cache design: Concept :temproral locality
     //the recently used program is most likely to be required again
 
@@ -59,7 +92,7 @@ public class linkedListGFGclass
         }
     }
     static node merge2sortedLL(node a,node b){
-        node head=null,tail=null;
+        node head,tail;
         if (a==null) return b;
         if (b==null) return a;
         if (a.data<=b.data){
@@ -101,22 +134,37 @@ class linkedList{
         }
         length++;
     }
+    void insertEnd(int d){
+        node box=new node(d);
+        node temp=HEAD;
+        if (HEAD==null)
+            HEAD=box;
+        else {
+            while (temp.next!=null)
+                temp=temp.next;
+            temp.next=box;
+        }
+        length++;
+    }
     int getLength(){
         return length;
     }
     void traverse(){
         node runner=HEAD;
         while (runner!=null){
-            System.out.println(runner.data);
+            System.out.print(runner.data+"-> ");
             runner=runner.next;
         }
+        System.out.println();
     }
     void middleLinkedList(){    //fast and slow runner
         node slow=HEAD;
         node fast=HEAD;
         while (fast!=null && fast.next!=null){  //checking fast!=null ensure that fast.next is never accessed
+//            System.out.println("Slow: "+slow.data+" fast: "+fast.data);
             slow=slow.next;
             fast=fast.next.next;
+
         }
         /*
         in case of even number elements fast.next becomes null
@@ -336,7 +384,47 @@ class linkedList{
         prev.next=curr;
         System.out.println("Pair wise swapped");
     }
-
+    //  -----------JOSH LINKED LIST QUESTIONS------------
+    public void rearrange(){     //  SPIRAL TRAVERSAL
+        //Step01:- REVERSE HALF OF THE LINKED LIST AND PLACE 2 POINTERS TO THE START AND MIDDLE
+        node slow=HEAD;
+        node fast=HEAD;
+        int count=0;
+        while (slow!=null) {
+            slow = slow.next;
+            count++;
+        }
+        slow=HEAD;
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        System.out.println("Count: "+count);
+        System.out.println("Slow: "+slow.data);
+        slow=slow.next;
+        //NOW REVERSE HALF
+        node curr=HEAD;
+        node prev=null;
+        while (curr != slow) {
+            node next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+//            System.out.println("cur: "+curr.data+" prev: "+prev.data+" nxt: "+next.data);
+        }
+        System.out.println(curr.data);
+        System.out.println(prev.data);
+//        prev.next=curr;
+        HEAD=prev;
+        node last=HEAD;
+        while (last.next!=null)
+            last=last.next;
+        System.out.println("last: "+last.data);
+        last.next=curr;
+        traverse();
+        System.out.println("Cur: "+curr.data);
+        //  NOW WE CAN REVERSE
+    }
 
 }
 

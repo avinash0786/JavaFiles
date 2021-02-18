@@ -1,15 +1,22 @@
 package CP_training;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 //  RECURSION AND BACKTRACKING
 public class feb14 {
     public static void main(String[] args) {
         System.out.println("power 2^10: "+powerRec(2,10));
         System.out.println("Fast exp 2^10: "+fastExp(2,10));
-        genBalParam("",3,3);
-        genSubsets(0,new HashSet<>());
+//        genBalParam("",3,3);
+//        genSubsets(0,new HashSet<>());
+//        String a="hello";
+//        ArrayList<Integer> ops=new ArrayList<>();
+//        genPermutations("123",0,0,ops);
+//        Collections.sort(ops);
+//        System.out.println(ops);
+//        letterCombinations("23");
+//        subsetsWithDup(new int[]{1,2,2});
+        permute(new int[]{1,2,3});
     }
     //  linked list 2 sum
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -49,13 +56,62 @@ public class feb14 {
                 board[rowNum][col]='\u0000';
             }
         }
-
     }
 
     private static boolean canPlace(int rowNum, int col) {
         return true;
     }
+    //Letter combinations
+    public static void letterCombinations(String digits) {
+        List<String> op=new ArrayList<>();
+        String[] letters=new String[]{"0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        genLetterComb(letters,"23","",0,op);
+        System.out.println(op);
+    }
+    public static void genLetterComb(String[] letters,String digits,String cur,int num,List<String> ops){
+        if (num>=digits.length())
+            return;
+        int curNum=Integer.parseInt(String.valueOf(digits.charAt(num)));
+        System.out.println("Cur num: "+curNum);
+        String chars=letters[curNum];
+        System.out.println("Cur letters:  "+chars);
+        for (int i = 0; i < chars.length(); i++) {
+            String temp=cur.concat(String.valueOf(chars.charAt(i)));
+            if (temp.length()==digits.length())
+                ops.add(temp);
+            genLetterComb(letters,digits,temp,num+1,ops);
+        }
+    }
+    //Generate all nos from given nos
+    public static void genPermutations(String main, int cur, int level, ArrayList<Integer> op){
+        if (level>=main.length())
+            return;
+        for (int i = 0; i < main.length(); i++) {
+            int temp =cur*10+Integer.parseInt(String.valueOf(main.charAt(i)));
+            System.out.println("Cur: "+temp+" level: "+level+" charAt: "+i);
+            op.add(temp);
+            genPermutations(main,temp,level+1,op);
+        }
+    }
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        backtrack(list, new LinkedHashSet<>(), nums); // iteration order = insertion order
+        System.out.println(list);
+        return list;
+    }
 
+    private static void backtrack(List<List<Integer>> list, Set<Integer> tmpList, int[] nums) {
+        if (tmpList.size() == nums.length) {
+            list.add(new ArrayList(tmpList));
+        } else {
+            for(int i = 0; i < nums.length; i++){
+                if (tmpList.add(nums[i])) { // elements are unique
+                    backtrack(list, tmpList, nums); // recursive call
+                    tmpList.remove(nums[i]); // backtrack
+                }
+            }
+        }
+    }
     //Generete subsets
     static int[] arr=new int[]{1,2,3};
     public static void genSubsets(int index, HashSet<Integer> set){ //  O(2^n*N) N for printing
@@ -68,9 +124,43 @@ public class feb14 {
         set.remove(arr[index]);
         genSubsets(index+1,set);
     }
+    public static List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> op=new ArrayList<>();
+        List<Integer> intern=new ArrayList<>();
+        Arrays.sort(nums);
+
+        genSubSet02(nums,0,op,intern);
+        op.add(new ArrayList<>());
+        System.out.println(op);
+        return op;
+    }
+    public static void genSubSet02(int[] nums,int index,List<List<Integer>> op,List<Integer> intern){
+        System.out.println("=====================================");
+        System.out.println("index: "+index);
+        for (int i = index; i < nums.length; i++) {
+            System.out.println("i: "+i);
+            if (i>index && nums[i]==nums[i-1]) {
+                System.out.println("Continue");
+                continue;
+            }
+            else {
+                System.out.println("else");
+                intern.add(nums[i]);
+                op.add(new ArrayList<>(intern));
+                System.out.println("Temp: "+intern);
+                System.out.println("Final: "+op);
+                genSubSet02(nums,i+1,op,intern);
+                intern.remove(intern.size()-1);
+                System.out.println("Remove temp: "+intern);
+            }
+        }
+        System.out.println("******Ended index: "+index);
+        System.out.println("------------------");
+    }
 
     //Balanced parenthesis generate
     public static void genBalParam(String str,int open,int close){
+        System.out.println("Cur: "+str+" open: "+open+" close: "+close);
         if (open==0 && close==0){
             System.out.println(str);
             return;

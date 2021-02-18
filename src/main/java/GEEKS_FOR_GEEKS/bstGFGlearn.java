@@ -428,6 +428,7 @@ class BST{
         int d3=diameterNaive(root.right);
         return Math.max(d1,Math.max(d2,d3));
     }
+
     int res=0;
     public int diameterEfic(bstNode root){
         if (root==null)
@@ -455,6 +456,7 @@ class BST{
             return (int) (Math.pow(2,lh)-1);
         return 1+countNodesEffic(root.left)+countNodesEffic(root.right);
     }
+
      final int EMPTY=-1;
     public void serialize(bstNode root, ArrayList<Integer> op){
         if (root==null){
