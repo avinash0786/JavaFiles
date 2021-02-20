@@ -10,20 +10,22 @@ public class linkedListGFGclass
         fir.insertEnd(10);
         fir.insertEnd(9);
         fir.insertEnd(7);
-        fir.traverse();
-        System.out.println("Lenght: "+fir.getLength());
+//        fir.traverse();
+//        System.out.println("Lenght: "+fir.getLength());
         linkedList inp=new linkedList();
-        inp.insertStart(7);
-        inp.insertStart(6);
+//        inp.insertStart(7);
+//        inp.insertStart(6);
         inp.insertStart(5);
         inp.insertStart(4);
         inp.insertStart(3);
         inp.insertStart(2);
         inp.insertStart(1);
-        inp.traverse();
-        inp.middleLinkedList();
+//        inp.traverse();
+//        inp.middleLinkedList();
+        inp.rearrange02();
 
-        inp.rearrange();
+//        inp.rearrange();
+        System.out.println("-------------------");
 
         linkedList inp2=new linkedList();
         inp2.insertStart(6);
@@ -32,10 +34,13 @@ public class linkedListGFGclass
         inp2.insertStart(3);
         inp2.insertStart(2);
         inp2.insertStart(1);
-        System.out.println("------------------------");
-        inp2.traverse();
-        inp2.middleLinkedList();
-        inp2.rearrange();
+//        inp2.rearrange02();
+//        System.out.println("------------------------");
+//        inp2.traverse();
+        inp2.rearrange02();
+
+//        inp2.middleLinkedList();
+//        inp2.rearrange();
 //        linkedList first=new linkedList();
 //        first.insertStart(23);
 //        first.insertStart(12);
@@ -383,6 +388,43 @@ class linkedList{
         }
         prev.next=curr;
         System.out.println("Pair wise swapped");
+    }
+    //-------------REARRANGE l0->ln->l1->ln-1
+    public void rearrange02(){
+        traverse();
+        node slow=HEAD;
+        node fast=HEAD.next;
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        node cur1=HEAD;
+        node cur2=slow.next;
+        slow.next=null;
+//        System.out.println("MIddle: "+slow.data);
+        // reverse cur2
+        node curr=cur2;
+        node prev=null;
+        while (curr != null) {
+            node next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        cur2=prev;
+        //  Merge step
+        while (cur1!=null && cur2!=null){
+            node nx1=cur1.next;
+            node nx2=cur2.next;
+
+            cur1.next=cur2;
+            cur2.next=nx1;
+
+            cur1=nx1;
+            cur2=nx2;
+        }
+        System.out.println("Rearranged");
+        traverse();
     }
     //  -----------JOSH LINKED LIST QUESTIONS------------
     public void rearrange(){     //  SPIRAL TRAVERSAL

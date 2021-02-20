@@ -16,7 +16,12 @@ public class feb14 {
 //        System.out.println(ops);
 //        letterCombinations("23");
 //        subsetsWithDup(new int[]{1,2,2});
-        permute(new int[]{1,2,3});
+//        permute(new int[]{1,2,3});
+//        System.out.println("Res: "+kSymbol02(4,5));
+        HashSet<Character> vob=new HashSet<>();
+        vob.add('a');vob.add('e');vob.add('i');vob.add('o');vob.add('u');
+        genStringSpace("abc","",0,vob);
+
     }
     //  linked list 2 sum
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -61,6 +66,65 @@ public class feb14 {
     private static boolean canPlace(int rowNum, int col) {
         return true;
     }
+
+    //kSymbol
+    public static int kSymbol02(int n,int k){
+        if (k==1 && n==1)
+            return 0;
+        int mid= (int) (Math.pow(2,n-1)/2);
+        if (k<=mid)
+            return kSymbol02(n-1,k);
+        else
+            return 1-kSymbol02(n-1,k-mid);
+    }
+
+
+    public static void  genStringSpace(String s,String cur,int index, HashSet<Character> vowels){
+        if (index==s.length()){
+            System.out.println(cur);
+            return;
+        }
+        if (vowels.contains(s.charAt(index))){
+            genStringSpace(s,cur.concat(String.valueOf(s.charAt(index))),index+1,vowels);
+        }
+        else {
+            genStringSpace(s,cur.concat(" ").concat(String.valueOf(s.charAt(index))),index+1,vowels);
+            genStringSpace(s,cur.concat(String.valueOf(s.charAt(index))),index+1,vowels);
+        }
+    }
+    public int kthGrammar(int N, int K) {
+        return kth(0, N, K);
+    }
+
+    private int kth(int m, int N, int K) {
+        if (N == 1) return m;
+        int mid = (int)Math.pow(2, N-2);
+        if (K <= mid) {
+            return kth(m, N-1, K);
+        } else {
+            return kth(1-m, N-1, K-mid);
+        }
+    }
+//    public static void  kSymbol(int level, int k, int cur, StringBuilder op, int limit, int i){
+//        System.out.println("Lenght: "+op.length()+" cur: "+op);
+//        if (i==k){
+//            System.out.println("Curr: "+cur);
+//            System.out.println(op);
+//            return;
+//        }
+//        if (level==limit){
+//            k++;
+//            return;
+//        }
+//        if (cur==0){
+//            kSymbol(level+1,k,0,op,limit,i);
+//            kSymbol(level+1,k,1,op,limit,i);
+//        }
+//        else {
+//            kSymbol(level+1,k,1,op,limit,i);
+//            kSymbol(level+1,k,0,op,limit,i);
+//        }
+//    }
     //Letter combinations
     public static void letterCombinations(String digits) {
         List<String> op=new ArrayList<>();

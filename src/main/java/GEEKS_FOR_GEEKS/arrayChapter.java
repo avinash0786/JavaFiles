@@ -47,12 +47,10 @@ public class arrayChapter
         else if(count_y>count_x)
             return y;
         else
-            if(x<y)
-                return x;
-            else return y;
+            return Math.min(x, y);
 
     }
-    static void largestAndSecondLargest(int sizeOfArray, int arr[]){
+    static void largestAndSecondLargest(int sizeOfArray, int[] arr){
 
         int max = 0;
         int max2 = -1;

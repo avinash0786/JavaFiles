@@ -7,16 +7,37 @@ import java.util.LinkedHashMap;
 
 public class feb16 {
     public static void main(String[] args) {
-        pairSum(new int[]{1,3,5,7,8,10,11,13,15},13);
-        pairDiff(new int[]{1,3,5,7,8,10,11,13,15},8);
+//        pairSum(new int[]{1,3,5,7,8,10,11,13,15},13);
+//        pairDiff(new int[]{1,3,5,7,8,10,11,13,15},8);
         minBoats(new int[]{1,3,5,6,11,18,19,20},20);
-        System.out.println(longestNonRepSubString("aaass"));
-        System.out.println(minSwapGroupK(new int[]{1,8,6,2,8,4,8},4));
-        System.out.println(contMostWater(new int[]{1,8,6,2,5,4,8,3,7}));
-        System.out.println("Pair exist: "+pairExist(new int[]{3,1,6,7,5,10},11));
-        subarraySum(new int[]{1,2,-3,6,4},0);
-        subarraySum(new int[]{1,2,-3,-2,6,4},1);
+//        System.out.println(longestNonRepSubString("abcabcbb"));
+//        System.out.println(minSwapGroupK(new int[]{1,8,6,2,8,4,8},4));
+//        System.out.println(contMostWater(new int[]{1,8,6,2,5,4,8,3,7}));
+//        System.out.println("Pair exist: "+pairExist(new int[]{3,1,6,7,5,10},11));
+//        subarraySum(new int[]{1,2,-3,6,4},0);
+//        subarraySum(new int[]{1,2,-3,-2,6,4},1);
 
+    }
+    public int findMaxLength(int[] nums) {
+        HashMap<Integer,Integer> counts=new HashMap<>();
+        int maxLen=0;
+        counts.put(0,-1);
+        int count=0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i]==0){
+                count+=-1;
+            }
+            else {
+                count+=1;
+            }
+            if (counts.containsKey(count)){
+                maxLen=Math.max(maxLen,i-counts.get(count));
+            }
+            else {
+                counts.put(count,i);
+            }
+        }
+        return maxLen;
     }
     public static void pairSum(int[]arr, int sum){
         int low=0;
@@ -64,6 +85,8 @@ public class feb16 {
         }
     }
     public static int  minBoats(int[] weights, int limit){
+        Arrays.sort(weights);
+        System.out.println(Arrays.toString(weights));
         int low=0;
         int high=weights.length-1;
         int count=0;

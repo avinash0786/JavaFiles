@@ -27,6 +27,8 @@ public class feb17 {
     }
     //-----------------LINKED LIST--------------------
 
+    public static void reverse(){
+    }
 
 
 
