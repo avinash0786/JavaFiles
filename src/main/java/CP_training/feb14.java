@@ -45,7 +45,26 @@ public class feb14 {
         }
         return answer.next;
     }
-
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow=head;
+        ListNode fast=head;
+        while (fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if (slow==fast)
+                break;
+        }
+        if (slow!=fast)
+            return head;        //----till now loop detection
+                                //----now loop removal
+        slow=head;
+        while (slow.next!=fast.next){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        fast.next=null;
+        return head;
+    }
     //  N-Queen problem
     public static void nQueen(char[][] board,int rowNum, int N){
         if (rowNum==N){
@@ -203,7 +222,7 @@ public class feb14 {
         System.out.println("index: "+index);
         for (int i = index; i < nums.length; i++) {
             System.out.println("i: "+i);
-            if (i>index && nums[i]==nums[i-1]) {
+            if (i>index && nums[i]==nums[i-1]) {    //not check for i==index i.e first run
                 System.out.println("Continue");
                 continue;
             }

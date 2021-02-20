@@ -357,9 +357,10 @@ public class arrayChapter
         for(int i=0,j=0;i<size && j<max; i++)
         {   for(int k:tem)
             System.out.print(k+" ");
-        System.out.println();
+            System.out.println();
             if(arr[i]>0)
-            {   System.out.println("val: "+arr[i]+"  i: "+i);
+            {
+                System.out.println("val: "+arr[i]+"  i: "+i);
                 tem[arr[i]-1]=1;
                 j++;
             }

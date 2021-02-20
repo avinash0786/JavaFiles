@@ -7,12 +7,13 @@ public class feb13 {
         int[] arr=new int[]{2,5,8,9,12,12,12,12,15,23,29,35};
 //        System.out.println("23 found at: "+binSearch(arr,213));
 //        System.out.println("First index of 12: "+firstOcc(arr,12));
-        System.out.println("Mountain peak: "+peakMount(new int[]{3,5,3,2,0}));
-//        System.out.println(searchInsert(new int[]{1,3,5,6,9,12,15,16,18,23,25,29} ,5));
-        System.out.println(Arrays.toString(searchRange(new int[]{5,7,7,8,8,10},8)));
-        System.out.println(lastPos(new int[]{2,2,2,2},2));
-        System.out.println(kthSmallest(new int[]{7,10,4,3,20,15},3));
-        System.out.println(nLargest(new int[]{7,10,4,3,20,15},3));
+//        System.out.println("Mountain peak: "+peakMount(new int[]{3,5,3,2,0}));
+////        System.out.println(searchInsert(new int[]{1,3,5,6,9,12,15,16,18,23,25,29} ,5));
+//        System.out.println(Arrays.toString(searchRange(new int[]{5,7,7,8,8,10},8)));
+//        System.out.println(lastPos(new int[]{2,2,2,2},2));
+//        System.out.println(kthSmallest(new int[]{7,10,4,3,20,15},3));
+//        System.out.println(nLargest(new int[]{7,10,4,3,20,15},3));
+        System.out.println(aggrCowsNaive(new int[]{1,2,8,4,9},3,5));
     }
     public static boolean isFeasible(int arr[],int n,int k, int ans){
         int req=1,sum=0;
@@ -121,21 +122,23 @@ public class feb13 {
     }
     //aggressive cows
     public static int aggrCowsNaive(int[] arr,int c,int n){ //  O(n*(max-min))
+        Arrays.sort(arr);
         int low=arr[0];
         int high=arr[arr.length-1];
         int max=high-low;
-        int lastCow=-1;
+        int lastCow;
         int cnt=-1;
-        for (int i = low; i < max; i++) {
-            int cow=0;
+        System.out.println(Arrays.toString(arr));
+        for (int i = 1; i < max; i++) {
+            int cow=1;
             lastCow=arr[0];
-            for (int j = low; j <n-1 ; j++) {
+            for (int j = 1; j <n ; j++) {
                 if (arr[j]-lastCow>=i){
                     cow++;
                     lastCow=arr[j];
                 }
             }
-            if (cow>c)
+            if (cow>=c)
                 cnt=i;
             else
                 break;

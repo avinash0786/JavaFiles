@@ -467,6 +467,27 @@ class linkedList{
         System.out.println("Cur: "+curr.data);
         //  NOW WE CAN REVERSE
     }
+    /*
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+        ListNode temp1=list1;
+        ListNode temp2=list2;       //Contain last of list2
+
+        ListNode Al1=null;
+        //Setting cl2 to end of list2
+        while(temp2.next!=null)
+            temp2=temp2.next;
+
+        for(int i=0; i<=b;i++){
+            if(i==a-1)
+                Al1=temp1;
+            temp1=temp1.next;
+        }
+        Al1.next=list2;
+        temp2.next=temp1;
+
+        return list1;
+    }
+    */
 
 }
 
