@@ -11,7 +11,8 @@ public class leadSquared10CTC {
         System.out.println("Count sorted occurance: "+countSortOcc(new int[]{1,2,3,4,5},5));
 //        fizzBuzzM03(20);
         System.out.println("Closet element: "+closestValue(new int[]{1,2,5,6,9,12,15,19,23,26,29},27));
-        System.out.println("bob chocolate: "+bobChocolate(20,3,2));
+        System.out.println("bob chocolate: "+bobChocolate(12,2,2));
+        System.out.println("bob chocolate: "+chocWrapBob(12,2,2));
     }
     public static String revWords(String str){//  Question 02
         char[] arr=str.toCharArray();
@@ -187,10 +188,33 @@ public class leadSquared10CTC {
         }
     }
     public static int bobChocolate(int n, int c, int m){
-        int chocfromPrice=n/c;
-        System.out.println("chocolate from rupee: "+chocfromPrice);
-        int chocfrmWrapper=chocfromPrice/m;
-        System.out.println("Wrapper for one: "+m+" free choc: "+chocfrmWrapper);
-        return chocfrmWrapper+chocfromPrice;
+        int chocCount=n/c;
+        int wrapCount=chocCount;
+        while (wrapCount>=m){
+            int chocGet=wrapCount/m;
+            chocCount+=chocGet;
+            wrapCount=chocGet+wrapCount%m;
+        }
+        return chocCount;
     }
+    public static int chocWrapBob(int n, int c, int m){
+        int chocCount=n/c;
+        int wrapCount=chocCount;
+        while (wrapCount>=m){
+            chocCount++;
+            wrapCount-=m;
+            wrapCount++;
+        }
+        return chocCount;
+    }
+    /**
+     * int chocCount=n/c;
+     *         int wrapCount=chocCount;
+     *         while (wrapCount>=m){
+     *             chocCount++;
+     *             wrapCount-=m;
+     *             wrapCount++;
+     *         }
+     *         return chocCount;
+     */
 }

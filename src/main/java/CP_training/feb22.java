@@ -17,15 +17,15 @@ public class feb22 {
                 root=st.pop();
             }
             else {
-                preord.add(root.data);
+                preord.add(root.data);      // node
                 if (root.right!=null)
-                    st.push(root.right);
-                root=root.left;
+                    st.push(root.right);        //last-- right
+                root=root.left;             //left
             }
         }
         System.out.println(preord);
     }
-    public static void preorderIter02(bstNode root){
+    public static void inOrderIter02(bstNode root){
         Stack<bstNode> st=new Stack<>();
         List<Integer> preord=new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class feb22 {
                 root=root.left;
             }
         }
-        System.out.println(preord);
+        System.out.println("Inorder: "+preord);
     }
     public static void postorderIter(bstNode root){
         Stack<pair> st=new Stack<>();

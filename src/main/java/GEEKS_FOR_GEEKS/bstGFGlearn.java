@@ -5,20 +5,21 @@ import java.util.*;
 public class bstGFGlearn {
     public static void main(String[] args) {
         BST bst2=new BST();
-        int[] arr=new int[]{95,80,100,60,97,99,50,65,70};
+        int[] arr=new int[]{30,20,35,15,26,37,36};
         bst2.multipleInsert(arr);
         bst2.preOrderIterSpcOpt(bst2.getRoot());
+        bst2.postOrderIter(bst2.getRoot());
 //        bst2.inorderRec(bst2.getRoot());
         System.out.println();
-        bst2.postOrderIter(bst2.getRoot());
-        System.out.println();
-        System.out.println("Height tree: "+bst2.heightTree(bst2.getRoot()));
+//        bst2.postOrderIter(bst2.getRoot());
+//        System.out.println();
+//        System.out.println("Height tree: "+bst2.heightTree(bst2.getRoot()));
 //        System.out.println("K-Distance:(3)  ");bst2.kDistNode(bst2.getRoot(),3);
 //        bst2.LOT(bst2.getRoot());
 //        bst2.LOTlineByLine(bst2.getRoot());
 //        bst2.LOTlineByLineM02(bst2.getRoot());
-        System.out.println("no of nodes: "+bst2.getSize(bst2.getRoot()));
-        System.out.println("Max node value: "+bst2.getMax(bst2.getRoot()));
+//        System.out.println("no of nodes: "+bst2.getSize(bst2.getRoot()));
+//        System.out.println("Max node value: "+bst2.getMax(bst2.getRoot()));
 //        bst2.printLeftView(bst2.getRoot(),1);
 //        bst2.printRightView(bst2.getRoot(),0);
 //        bst2.spiralTraversal(bst2.getRoot());
@@ -115,7 +116,24 @@ class BST{
             op.add(cur.data);   // add the data
             cur=cur.right;  // go to the right
         }
-        System.out.println(op);
+        System.out.println("Inorder: "+op);
+    }
+    public void inOrderIter02(bstNode root){
+        Stack<bstNode> st=new Stack<>();
+        List<Integer> inord=new ArrayList<>();
+
+        while (root!=null || !st.isEmpty()){
+            if (root==null){
+                root=st.pop();
+                inord.add(root.data);
+                root=root.right;
+            }
+            else {
+                st.push(root);
+                root=root.left;
+            }
+        }
+        System.out.println("Inorder: "+inord);
     }
     public void preorderIter(bstNode root){     // N-L-R
         List<Integer> op=new LinkedList<>();
@@ -149,8 +167,7 @@ class BST{
             if (!stk.isEmpty())
                 cur=stk.pop();
         }
-        System.out.print("PreOrder: ");
-        System.out.print(op);
+        System.out.println("PreOrder: "+op);
         return op;
     }
 

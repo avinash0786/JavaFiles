@@ -170,7 +170,7 @@ class graph{
         }
         return false;
     }
-    public boolean cycleDetDFS(){
+    public boolean cycleDetDFS(){   //cycle detection in un-directed graph
         boolean[] visited=new boolean[adj.size()];
         for (int i = 0; i < adj.size(); i++) {
             if (!visited[i]){
@@ -180,7 +180,7 @@ class graph{
         }
         return false;
     }
-    protected boolean detCycDir(int source,boolean[] visited, boolean[] recStk){
+    protected boolean detCycDir(int source,boolean[] visited, boolean[] recStk){    // cycle detection in directed graph
         visited[source]=true;
         recStk[source]=true;
         for (int u:adj.get(source)){
@@ -234,7 +234,6 @@ class graph{
         while (!que.isEmpty()){
             int u=que.poll();
             System.out.print(u+" ");
-
             for(int x:adj.get(u)){
                 if (--inDeg[x]==0)
                     que.add(x);

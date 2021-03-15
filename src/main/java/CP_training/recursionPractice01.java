@@ -11,7 +11,19 @@ public class recursionPractice01 {
 //        genSubset("",0);
 //        System.out.println("Count subSet sum: "+countSubsetSum(25,4));
 //        stringPerm("ABC",0);
-        System.out.println("K th grammer: "+kSymbol02(4,5));
+//        System.out.println("K th grammer: "+kSymbol02(4,5));
+        TreeSet<Integer> ord=new TreeSet<>();
+        TreeMap<Integer,Integer> pp=new TreeMap<>();
+        HashMap<Integer,Integer> qq=new HashMap<>();
+        ord.add(1);
+        ord.add(5);
+        ord.add(10);
+        ord.add(15);
+        ord.add(2);
+        ord.add(6);
+        ord.add(12);
+        ord.add(18);
+        System.out.println(ord);
     }
     //  K-th Grammer
     /*

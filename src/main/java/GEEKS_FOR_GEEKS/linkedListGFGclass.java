@@ -35,9 +35,8 @@ public class linkedListGFGclass
         inp2.insertStart(2);
         inp2.insertStart(1);
 //        inp2.rearrange02();
-//        System.out.println("------------------------");
-//        inp2.traverse();
-        inp2.rearrange02();
+        System.out.println("-------------spiral-----------");
+        inp2.spiralRearrange();
 
 //        inp2.middleLinkedList();
 //        inp2.rearrange();
@@ -156,6 +155,14 @@ class linkedList{
     }
     void traverse(){
         node runner=HEAD;
+        while (runner!=null){
+            System.out.print(runner.data+"-> ");
+            runner=runner.next;
+        }
+        System.out.println();
+    }
+    void traverse(node hed){
+        node runner=hed;
         while (runner!=null){
             System.out.print(runner.data+"-> ");
             runner=runner.next;
@@ -427,45 +434,51 @@ class linkedList{
         traverse();
     }
     //  -----------JOSH LINKED LIST QUESTIONS------------
-    public void rearrange(){     //  SPIRAL TRAVERSAL
-        //Step01:- REVERSE HALF OF THE LINKED LIST AND PLACE 2 POINTERS TO THE START AND MIDDLE
+    public void spiralRearrange(){     //  SPIRAL TRAVERSAL
+        System.out.println("Spiral trav start");
+        traverse();
         node slow=HEAD;
-        node fast=HEAD;
-        int count=0;
-        while (slow!=null) {
-            slow = slow.next;
-            count++;
-        }
-        slow=HEAD;
+        node fast=HEAD.next;
+        int l1=0;
         while (fast!=null && fast.next!=null){
             slow=slow.next;
             fast=fast.next.next;
+            l1++;
         }
-        System.out.println("Count: "+count);
-        System.out.println("Slow: "+slow.data);
-        slow=slow.next;
-        //NOW REVERSE HALF
-        node curr=HEAD;
+        System.out.println("length: "+l1);
+        System.out.println("mid: "+slow.data);
+        node cur1=HEAD;
+        node cur2=slow.next;
+        slow.next=null;
+//        System.out.println("MIddle: "+slow.data);
+        // reverse cur1
+        node curr=cur1;
         node prev=null;
-        while (curr != slow) {
+        while (curr != null) {
             node next=curr.next;
             curr.next=prev;
             prev=curr;
             curr=next;
-//            System.out.println("cur: "+curr.data+" prev: "+prev.data+" nxt: "+next.data);
         }
-        System.out.println(curr.data);
-        System.out.println(prev.data);
-//        prev.next=curr;
-        HEAD=prev;
-        node last=HEAD;
-        while (last.next!=null)
-            last=last.next;
-        System.out.println("last: "+last.data);
-        last.next=curr;
-        traverse();
-        System.out.println("Cur: "+curr.data);
-        //  NOW WE CAN REVERSE
+        cur1=prev;
+        node spiral=cur1;
+        if (l1%2==1)
+            cur1=cur1.next;
+        //  Merge step
+        traverse(cur1);
+        traverse(cur2);
+        while (cur1!=null && cur2!=null){
+            node nx1=cur1.next;
+            node nx2=cur2.next;
+
+            cur1.next=cur2;
+            cur2.next=nx1;
+
+            cur1=nx1;
+            cur2=nx2;
+        }
+        System.out.println("Spiral traversal done");
+        traverse(spiral);
     }
     /*
     public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
