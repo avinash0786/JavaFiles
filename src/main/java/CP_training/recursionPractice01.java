@@ -11,19 +11,20 @@ public class recursionPractice01 {
 //        genSubset("",0);
 //        System.out.println("Count subSet sum: "+countSubsetSum(25,4));
 //        stringPerm("ABC",0);
+        genPermutations(new int[]{1,2,3});
 //        System.out.println("K th grammer: "+kSymbol02(4,5));
-        TreeSet<Integer> ord=new TreeSet<>();
-        TreeMap<Integer,Integer> pp=new TreeMap<>();
-        HashMap<Integer,Integer> qq=new HashMap<>();
-        ord.add(1);
-        ord.add(5);
-        ord.add(10);
-        ord.add(15);
-        ord.add(2);
-        ord.add(6);
-        ord.add(12);
-        ord.add(18);
-        System.out.println(ord);
+//        TreeSet<Integer> ord=new TreeSet<>();
+//        TreeMap<Integer,Integer> pp=new TreeMap<>();
+//        HashMap<Integer,Integer> qq=new HashMap<>();
+//        ord.add(1);
+//        ord.add(5);
+//        ord.add(10);
+//        ord.add(15);
+//        ord.add(2);
+//        ord.add(6);
+//        ord.add(12);
+//        ord.add(18);
+//        System.out.println(ord);
     }
     //  K-th Grammer
     /*
@@ -82,20 +83,21 @@ public class recursionPractice01 {
 
 
     //Permutation generate MO2
-    public static List<List<Integer>> genPermutations(int[] arr){
-        List<List<Integer>> op=new LinkedList<>();
-        genPerBacktrack(op,new HashSet<>(),arr);
+    public static List<List<Integer>> genPermutations(int[] nums){
+        List<List<Integer>> op=new ArrayList<>();
+        genPerBacktrack(op,new LinkedHashSet<>(),nums);
         System.out.println(op);
         return op;
     }
-    public static void  genPerBacktrack(List<List<Integer>> list, Set<Integer> temp, int[]arr){
-        if (temp.size()==arr.length)
-            list.add(new ArrayList<>(temp));
+    private static void  genPerBacktrack(List<List<Integer>> list, Set<Integer> temp, int[]nums){
+        if (temp.size()==nums.length) {
+            list.add(new ArrayList(temp));
+        }
         else {
-            for (int j : arr) {
-                if (temp.add(j)) {
-                    genPerBacktrack(list, temp, arr);
-                    temp.remove(j);
+            for (int num : nums) {
+                if (temp.add(num)) { // elements are unique
+                    genPerBacktrack(list, temp, nums); // recursive call
+                    temp.remove(num); // backtrack
                 }
             }
         }

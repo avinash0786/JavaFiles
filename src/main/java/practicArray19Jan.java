@@ -2,8 +2,8 @@ import java.util.Arrays;
 
 public class practicArray19Jan {
     public static void main(String[] args) {
-//        System.out.println(removeDuplicates(new int[]{0,0,1,1,1,1,2,3,3}));
-        int [][] arr=new int[][]{{5,2},{5,4},{10,3},{20,1}};
+        System.out.println(removeDuplicates(new int[]{0,0,1,1,1,1,2,3,3,3}));
+//        int [][] arr=new int[][]{{5,2},{5,4},{10,3},{20,1}};
 //        System.out.println(averageWaitingTime(arr));
     }
     public int maxOccured(int[] la, int[] ra){
@@ -79,12 +79,15 @@ public class practicArray19Jan {
         }
         return 0;
     }
-    public int removeDuplicates01(int[] nums) {
+    public static int removeDuplicates01(int[] nums) {
         int dups=1;
+        System.out.println(Arrays.toString(nums));
+
         for (int i = 1; i < nums.length; i++) {
             if (nums[i]!=nums[dups-1])
                 nums[dups++]=nums[i];
         }
+        System.out.println(Arrays.toString(nums));
         return dups;
     }
     public boolean containsDuplicate(int[] nums) {

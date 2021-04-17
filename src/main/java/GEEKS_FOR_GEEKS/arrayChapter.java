@@ -209,8 +209,7 @@ public class arrayChapter
     }
     public static int min=999;
     public static int max=0;
-    public static int maxOccured(int L[], int R[], int n, int maxx)
-    {
+    public static int maxOccured(int L[], int R[], int n, int maxx) {
         int maxoc=0;
         //System.out.println("n: "+n+" maxx: "+maxx);
         int minRange=0;
@@ -607,14 +606,13 @@ public class arrayChapter
     {
         int len=1;
         int tem=1;
-        for(int i=1;i<n;i++)
-        {
-            if(arr[i]%2==0 && arr[i-1]%2!=0 || arr[i]%2!=0 && arr[i-1]%2==0 )
-                {
-                    tem++;
-                    len=Math.max(tem,len);
-                }
-            else tem=1;
+        for(int i=1;i<n;i++) {
+            if(arr[i]%2==0 && arr[i-1]%2!=0 || arr[i]%2!=0 && arr[i-1]%2==0 ) {
+                tem++;
+                len=Math.max(tem,len);
+            }
+            else
+                tem=1;
         }
         return len;
     }

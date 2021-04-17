@@ -16,11 +16,11 @@ public class feb14 {
 //        System.out.println(ops);
 //        letterCombinations("23");
 //        subsetsWithDup(new int[]{1,2,2});
-//        permute(new int[]{1,2,3});
+        permute(new int[]{1,2,3});
 //        System.out.println("Res: "+kSymbol02(4,5));
-        HashSet<Character> vob=new HashSet<>();
-        vob.add('a');vob.add('e');vob.add('i');vob.add('o');vob.add('u');
-        genStringSpace("abc","",0,vob);
+//        HashSet<Character> vob=new HashSet<>();
+//        vob.add('a');vob.add('e');vob.add('i');vob.add('o');vob.add('u');
+//        genStringSpace("abc","",0,vob);
 
     }
     //  linked list 2 sum
@@ -187,10 +187,10 @@ public class feb14 {
         if (tmpList.size() == nums.length) {
             list.add(new ArrayList(tmpList));
         } else {
-            for(int i = 0; i < nums.length; i++){
-                if (tmpList.add(nums[i])) { // elements are unique
+            for (int num : nums) {
+                if (tmpList.add(num)) { // elements are unique
                     backtrack(list, tmpList, nums); // recursive call
-                    tmpList.remove(nums[i]); // backtrack
+                    tmpList.remove(num); // backtrack
                 }
             }
         }

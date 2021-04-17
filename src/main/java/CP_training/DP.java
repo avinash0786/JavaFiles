@@ -15,7 +15,7 @@ public class DP {
         if (dpCntWays.containsKey(index))   //  using memoization
             return dpCntWays.get(index);
 
-        dpCntWays.put(index,countWays(index+1, n)+countWays(index+1, n));
+        dpCntWays.put(index,countWays(index+1, n)+countWays(index+2, n));
         return dpCntWays.get(index);
     }
 
@@ -128,6 +128,23 @@ public class DP {
         else
             DP_LCS[i][j]=Math.max(LCS(i+1,j),LCS(i,j+1));
         return DP_LCS[i][j];
+    }
+
+    public static int LIS(int[]arr){        //LIS: Longest Increasing Subsequence
+        int n=arr.length;
+        int[] DP_LIS=new int[n];
+        DP_LIS[0]=1;
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if ( arr[i] > arr[j] && DP_LIS[i] < DP_LIS[j] + 1)
+                    DP_LIS[i] = DP_LIS[j] + 1;
+            }
+        }
+        int ans=DP_LIS[0];
+        for (int i = 0; i < n; i++) {
+            ans=Math.max(ans,DP_LIS[i]);
+        }
+        return ans;
     }
 
 }

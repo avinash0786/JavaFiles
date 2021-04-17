@@ -790,7 +790,7 @@ public class sortingClass {
 //        sortABS(new int[]{10, 5, 3, 9, 2},5,7);
 //        radixSort(new int[]{319,212,6,8,100,50});
 //        insert(new int[]{2,5,4,2,1,6,9},7);
-        countSort(new int[]{1,4,4,1,0,1},5);
+//        countSort(new int[]{1,4,4,1,0,1},5);
     //    cycleSortDist(new int[]{2,5,6,4,8,9,3});
 //        insert(new int[]{7 ,72, 90, 21, 60},5);
         //sortedMerge(new int[]{1,3,5,8,9,12,56,76,98},new int[]{2,4,5,6,7,10,11,99,101,111,222,333});
@@ -798,10 +798,10 @@ public class sortingClass {
 //        mergeSort(new int[]{10,5,20,15,30,45,6},0,6);
 //        intersection(new int[]{2,5,8,13,15},new int[]{1,2,5,13,15});
 //        union(new int[]{2,5,8,13,15},new int[]{1,2,5,13,15});
-//        System.out.println(countInv(new int[]{10,5,18,15,16,30,45,6,9},0,8));
+        System.out.println(countInv(new int[]{10,5,18,15,16,30,45,6,9},0,8));
 //        partitionLomuto(new int[]{10,80,30,42,22,65,50,50},0,7,7);
 //        System.out.println(partitinHores(new int[]{7,5,1,3,9,4,8},0,6,0));
-        int []arr=new int[]{8,4,7,9,3,10,5};
+//        int []arr=new int[]{8,4,7,9,3,10,5};
 //        qSortLom(arr,0,6);
 //        System.out.println("Sorted: ");
 //        for (int i : arr) {

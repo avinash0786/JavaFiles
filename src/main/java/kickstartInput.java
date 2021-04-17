@@ -11,6 +11,7 @@ public class kickstartInput
         for (int i = 1; i <= t; ++i) {
             int n = in.nextInt();
             int m = in.nextInt();
+
             System.out.println("Case #" + i + ": " + (n + m) + " " + (n * m));
         }
     }

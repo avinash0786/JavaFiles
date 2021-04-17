@@ -174,7 +174,7 @@ public class practice08March {
         maxPathCalc(root);
         return result;
     }
-    public int maxPathCalc(TreeNode root){
+    public int maxPathCalc(TreeNode root){  //***IMPORTANT****
         if (root==null)
             return 0;
         int left=maxPathCalc(root.left);
@@ -250,8 +250,8 @@ public class practice08March {
             return "";
         }
 
-        int hash_pat[] = new int[no_of_chars];
-        int hash_str[] = new int[no_of_chars];
+        int[] hash_pat = new int[no_of_chars];
+        int[] hash_str = new int[no_of_chars];
 
         // Store occurrence ofs
         // characters of pattern

@@ -195,8 +195,15 @@ class nodeTree{
         BTtoDLL(root.right);
         return head;
     }
+    /*
+    we ensure that we get the correct head as linked list head
+    we only return the node returend by the left rec call
+    if left is null/ no left child we return null and set the head ==root  as prev is null
+     */
     //Constructing tree from preorder and inorder traversal given
     static int preIndex=0;
+    // is =inorder start index for that tree
+    // ie = inorder end index for that tree
     nodeTree inPreTree(int[] in,int[] pre,int is, int ie){
         if (is>ie)
             return null;
@@ -359,12 +366,15 @@ class nodeTree{
     nodeTree LCA(nodeTree root, int n1, int n2){    //Assumes n1 and n2 to exist in tree
         if (root==null)
             return null;
+        //if find any of the node n1, n2 we return that node
         if (root.data==n1 || root.data==n2)
             return root;
         nodeTree lca1=LCA(root.left,n1,n2);
         nodeTree lca2=LCA(root.right,n1,n2);
+        // if both are not null this is our LCA and we return this node
         if (lca1!=null && lca2!=null)
             return root;
+        //if this is not LCA we return any no not null value OR null if both are null
         if (lca1!=null)
             return lca1;
         else

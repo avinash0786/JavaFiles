@@ -6,7 +6,6 @@ public class sun_n
     public static int modInverse(int a, int b)
     {
         long M = 1000000007;
-
         return (int)((a%M)+(b%M)%M);
         //Your code here
     }

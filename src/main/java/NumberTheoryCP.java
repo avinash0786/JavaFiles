@@ -316,11 +316,11 @@ public class NumberTheoryCP {
         genPermutation(digits,2,index+1,cur,op,lev,fin,k);
     }
     public static void main(String[] args) {
-        ArrayList<Integer> op=new ArrayList<>();
-        ArrayList<Integer> fin=new ArrayList<>();
-        ArrayList<Integer> primes=new ArrayList<>();
-        genPrimes(100,primes);
-        System.out.println(primes);
+//        ArrayList<Integer> op=new ArrayList<>();
+//        ArrayList<Integer> fin=new ArrayList<>();
+//        ArrayList<Integer> primes=new ArrayList<>();
+//        genPrimes(100,primes);
+//        System.out.println(primes);
 //        BigDecimal t= BigDecimal.valueOf(System.currentTimeMillis());
 //        genPermutation("456",0,0,0,op,1,fin,2);
 //        genPermutation("456",1,0,0,op,1,fin,2);
@@ -346,7 +346,7 @@ public class NumberTheoryCP {
 //        System.out.println(gcd(10,10));
 //        System.out.println(lcm(12,24));
 //        seivePrime(300);
-//        primeFactor(36);
+        primeFactor(36);
 //        wheelFactorisation(56);
 //        System.out.println(eulerTotient(10));
 //        phiOnetoN(7);

@@ -20,7 +20,7 @@ public class arrSorSerPractice {
 //        System.out.println(Arrays.toString(searchRange(new int[]{1}, 1)));
 ////        System.out.println(findExtra(new int[]{2,4,6,8,10,12},new int[]{2,4,6,8,10,},6));
 //        System.out.println("max profit: "+stockBuyMaxProfit(new int[]{1,5,3,8,12}));
-//        minGroupFlip(new int[]{0,0,1,1,0,0,1,1,1});
+        minGroupFlip(new int[]{0,0,1,1,0,0,1,1,1});
 //        System.out.println(isSubSum(new int[]{1,9,5,4,2,8,3},3));
 //        System.out.println("Missing first: "+firstMissingPositive(new int[]{3,4,-1,1}));
 //        System.out.println("Aggr cows: "+aggrCowsBruteF(new int[]{1,2,4,8,9},3,5));
@@ -29,7 +29,7 @@ public class arrSorSerPractice {
 //        System.out.println("23".compareTo("32"));
 //        System.out.println(largestNumber(new int[]{3,30,34,5,9}));
 //        removeDuplicates(new int[]{0,0,1,1,1,1,2,3,3});
-        System.out.println(Arrays.deepToString(merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}})));
+//        System.out.println(Arrays.deepToString(merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}})));
     }
     public static int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
