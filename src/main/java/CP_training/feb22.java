@@ -268,7 +268,7 @@ public class feb22 {
         while(!q.isEmpty()){
             Pair02 p=q.poll();
             bstNode curr=p.node;
-            int hd=p.hd;
+            int hd=p.hd;        //hotizontal distance
             if(!mp.containsKey(hd))
                 mp.put(hd,curr.data);
             if(curr.left!=null)

@@ -570,6 +570,11 @@ public class BST{
     only update the first and second var nodes
     and contains the nodes to be swap
     and we swap the data of both the refrences;
+
+    as we are doing the inorder traversal the current node
+    when prev is not null, the cur node is always smaller than the prev.val
+    soo when cur.val > prev.val there is a voilation
+    and we update our first and second to mark the voilation nodes
      */
     bstNode prev02,first,second;
     public void fixBst(bstNode root){
@@ -578,10 +583,10 @@ public class BST{
         fixBst(root.left);
         if (prev02!=null && root.data<prev02.data){
             if (first==null)
-                first=prev;
+                first=prev02;
             second=root;
         }
-        prev=root;
+        prev02=root;
         fixBst(root.right);
     }
 

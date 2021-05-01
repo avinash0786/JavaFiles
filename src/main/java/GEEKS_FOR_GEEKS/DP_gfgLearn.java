@@ -24,6 +24,65 @@ public class DP_gfgLearn {
         System.out.println("Max non cons sum DP inp: "+maxSumNConsDp(new int[]{10,5,15,20},4));
 
     }
+    public boolean isMatch(String s, String p) {
+        str=s;
+        pat=p;
+        DPregex=new Boolean[s.length()+1][p.length()+1];
+        return regexMatchUtil(0,0);
+    }
+    //      '.' Matches any single characer
+    //      '*' Matches zero or more of the preceding element.
+    static String str;
+    static String pat;
+    static Boolean[][] DPregex;
+    //      i-> string index
+    //      j-> pattern index
+    private static boolean regexMatchUtil(int i,int j){
+        if (i>=str.length() && j>=pat.length())
+            return true;
+        if (j>=pat.length())
+            return false;
+        if (DPregex[i][j]!=null)
+            return DPregex[i][j];
+        boolean match=i<str.length() && (str.charAt(i)==pat.charAt(j) || pat.charAt(j)=='.');
+
+        if (j+1<pat.length() && pat.charAt(j+1)=='*'){
+            if (regexMatchUtil(i,j+2))      //if we dont match any character
+                return DPregex[i][j]=true;
+            if (match && regexMatchUtil(i+1,j))
+                return DPregex[i][j]=true;
+        }
+        if (match)
+            return DPregex[i][j]=regexMatchUtil(i+1,j+1);
+        return DPregex[i][j]=false;
+    }
+
+    //find min coins
+    static Integer[][]DPshops;
+    static int[] coins;
+    static int skipCost;
+    public static int shopsAndCandiesOptimized(int[] shops,int x){
+        DPshops=new Integer[shops.length][4];
+        coins=shops;
+        skipCost=x;
+        return findMinCoins(0,3);
+    }
+    private static int findMinCoins(int i,int skipLeft){
+        System.out.println("Call for i: "+i+" skipLeft: "+skipLeft);
+        if (i>=coins.length)
+            return 0;
+        if (DPshops[i][skipLeft]!=null)
+            return DPshops[i][skipLeft];
+
+        if (i==0 || i==coins.length-1)
+            return coins[i]+findMinCoins(i+1,3);
+
+        int take=coins[i]+findMinCoins(i+1,3);
+        int skip=(skipLeft>0)?skipCost+findMinCoins(i+1,skipLeft-1):Integer.MAX_VALUE;
+
+        DPshops[i][skipLeft]=Math.min(take,skip);
+        return DPshops[i][skipLeft];
+    }
     static int[] DP_FIB=new int[100];
     public static int nthFib(int n){
         if (n==0 || n==1)
@@ -114,38 +173,7 @@ public class DP_gfgLearn {
         return DP_Tab[m][n];
     }
 
-    //  Given a array of types of coins and a sum find the no fo ways by which we can make
-    //  the money equal to sum using the coins
-    // we can take any number of coins of a type
-    public static int coinChange(int[] coins, int n, int sum){
-        if (sum==0)
-            return 1;
-        if (n==0)
-            return 0;
-        int res=coinChange(coins,n-1,sum);  // Don't take, sum remains same
-        if (coins[n-1]<=sum)
-            res+=coinChange(coins,n,sum-coins[n-1]);    // Take the coin now sum is reduced
-        return res;
-    }
-    //if sum is 0 then there is one way to not take any element
-    //if n=0 nocoin then there is no way we can make any sum
-    public static int getCount(int[] coins, int n, int sum){
-        int[][] DP_COINS=new int[sum+1][n+1];
-        for (int i = 0; i <=n; i++) {
-            DP_COINS[0][i]=1;
-        }
-        for (int i = 1; i <=sum; i++) {
-            DP_COINS[i][0]=0;
-        }
-        for (int i = 1; i <=sum; i++) {
-            for (int j = 1; j <=n; j++) {
-                DP_COINS[i][j]=DP_COINS[i][j-1];
-                if (coins[j-1]<=i)
-                    DP_COINS[i][j]+=DP_COINS[i-coins[j-1]][j];
-            }
-        }
-        return DP_COINS[sum][n];
-    }
+
     /*
     In reursive algo 2 param change i.e n and sum, so create a 2d matrix denoting both var a t axis and
      */
@@ -337,6 +365,38 @@ public class DP_gfgLearn {
                 }
         return DP_minCoin[sum];
     }
+    //  Given a array of types of coins and a sum find the no fo ways by which we can make
+    //  the money equal to sum using the coins
+    // we can take any number of coins of a type
+    public static int coinChange(int[] coins, int n, int sum){
+        if (sum==0)
+            return 1;
+        if (n==0)
+            return 0;
+        int res=coinChange(coins,n-1,sum);  // Don't take, sum remains same
+        if (coins[n-1]<=sum)
+            res+=coinChange(coins,n,sum-coins[n-1]);    // Take the coin now sum is reduced
+        return res;
+    }
+    //if sum is 0 then there is one way to not take any element
+    //if n=0 nocoin then there is no way we can make any sum
+    public static int getCount(int[] coins, int n, int sum){
+        int[][] DP_COINS=new int[sum+1][n+1];
+        for (int i = 0; i <=n; i++) {
+            DP_COINS[0][i]=1;
+        }
+        for (int i = 1; i <=sum; i++) {
+            DP_COINS[i][0]=0;
+        }
+        for (int i = 1; i <=sum; i++) {
+            for (int j = 1; j <=n; j++) {
+                DP_COINS[i][j]=DP_COINS[i][j-1];
+                if (coins[j-1]<=i)
+                    DP_COINS[i][j]+=DP_COINS[i-coins[j-1]][j];
+            }
+        }
+        return DP_COINS[sum][n];
+    }
 
     //  Maximum jumps to reach destination
     // we call for no of ways to reach destination first and then rec call
@@ -407,8 +467,8 @@ public class DP_gfgLearn {
         for (int i = 0; i <=n; i++) {
             DP_KNAP[i][0]=0;
         }
-        for (int i = 1; i <=n; i++) {
-            for (int j = 1; j <=capacity; j++) {
+        for (int i = 1; i <=n; i++) {   //i denote the number of elements
+            for (int j = 1; j <=capacity; j++) {        //denotes the capacity
                 if (weight[i-1]>j)
                     DP_KNAP[i][j]=DP_KNAP[i-1][j];
                 else
@@ -496,14 +556,15 @@ public class DP_gfgLearn {
         }
     }
     //Dp[i] stores the max sum with length of array i
+    //maximum sum of non consecutive elements
     public static int maxSumNConsDp(int[] arr,int n){
         int[] DPCONS=new int[n+1];
         //array length min is 1 to dp[1] =arr[0]
         DPCONS[1]=arr[0];
         DPCONS[2]=Math.max(arr[0],arr[1]);
         for (int i = 3; i <=n; i++) {
-            int take=DPCONS[i-2]+arr[i-1];
-            int dontTake=DPCONS[i-1];
+            int take=DPCONS[i-2]+arr[i-1];//if we take this element we must have taken the prev adjacent element
+            int dontTake=DPCONS[i-1];//if we dont take this element we must have taken the prev element
             DPCONS[i]=Math.max(take,dontTake);
         }
         return DPCONS[n];

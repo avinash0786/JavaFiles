@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class sortingClass {
+
     static void insert(int arr[], int n) {
         for (int i = 1; i < n; i++) {
             int key = arr[i];
@@ -96,7 +97,7 @@ public class sortingClass {
         int i = 0;
         int j = 0;
         while (i < n && j < m) {
-            if (i > 0 &&  a[i - 1]== a[i]) {
+            if (i > 0 &&  a[i - 1]== a[i]) {     //for duplicate skipping
                 i++;
                 continue;
             }
@@ -275,6 +276,7 @@ public class sortingClass {
         }
         return i+1;
     }
+    //much better than lomuto
     public static int partitinHores(int []arr,int l,int h,int p)
     {
 //        System.out.println("Partition called l: "+l+" h:"+h);
@@ -373,9 +375,7 @@ public class sortingClass {
                 j--;
             }while (arr[j]>=0);
             if(i>=j) {
-                for (int i1 : arr) {
-                    System.out.print(i1+" ");
-                }
+                System.out.println(Arrays.toString(arr));
                 return;
             }
             int t=arr[j];
@@ -427,6 +427,7 @@ public class sortingClass {
             arr[i]=t;
         }
     }
+    //dutch national flag algo
     public static void sort012(int[]arr)
     {
         int low=0;

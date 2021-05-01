@@ -66,7 +66,7 @@ public class apr08 {
         if (nums.length<=1)
             return;
         int i=nums.length-2;
-        while (i>=0 && nums[i]>=nums[i-1]) {
+        while (i>=0 && nums[i]>=nums[i+1]) {
             i--;
         }
         if (i>=0){

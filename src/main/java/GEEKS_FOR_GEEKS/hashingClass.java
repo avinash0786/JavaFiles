@@ -213,7 +213,7 @@ public class hashingClass
         }
         System.out.println(freq.size());
         for (int i = k; i < arr.length; i++) {
-            freq.replace(arr[i-k],freq.get(arr[i-1])-1);
+            freq.replace(arr[i-k],freq.get(arr[i-k])-1);
             if (freq.get(arr[i-k])==0)
                 freq.remove(arr[i-k]);
             if (!freq.containsKey(arr[i]))

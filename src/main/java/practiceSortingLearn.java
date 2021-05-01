@@ -217,10 +217,12 @@ public class practiceSortingLearn {
         arr[k]=arr[j];
         arr[j]=t;
     }
+    //O(n) best case
     public static void bubbleSort(int[] arr){   //comparing pairs and swapping
         int n=arr.length;
         for (int i = 0; i <n; i++) {
             for (int j = 0; j < n-i-1; j++) {
+                //if prev is greater than next we swap it
                 if (arr[j]>arr[j+1])
                     swap(arr,j,j+1);
                 System.out.println(Arrays.toString(arr));
@@ -228,11 +230,13 @@ public class practiceSortingLearn {
             System.out.println("--------------------------------");
         }
     }
+    //O(n) best case -- inplace and stable best for small input
     public static void insertionSort(int[] arr){    //Insert the element at correct place shifting larger elements
         int n=arr.length;
         for (int i = 1; i < n; i++) {
             int key=arr[i];
             int j=i-1;
+            // we skip all greater element in left of i and place i to its correct place
             while (j>=0 && arr[j]>key){
                 arr[j+1]=arr[j];
                 j--;
@@ -240,10 +244,12 @@ public class practiceSortingLearn {
             arr[j+1]=key;
         }
     }
-
+    //not-stable
+    //find 1 st min element in first pass and place it first in array
+    //find 2 nd min element in second pass and place it second in array
     public static void selectionSort(int[]arr){ //select the minimum element and place it at correct place
         int n=arr.length;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n-1; i++) {
             int minIndex=i;
             for (int j = i+1; j < n; j++) {
                 if (arr[j]<arr[minIndex])
@@ -308,6 +314,7 @@ public class practiceSortingLearn {
             merge(arr,l,mid,r);
         }
     }
+
     public static void mergeInterval(interval[] arr){
         int res=0;
         for (int i =1; i <arr.length; i++) {

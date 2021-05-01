@@ -121,7 +121,7 @@ public class recursionApr {
             return false;
         //if cur ement is greater than the sum we dont need to consider the element
         if (arr[n-1]>sum)
-            isSubsetSum(arr,n-1,sum);
+            return isSubsetSum(arr,n-1,sum);
         //considering the element then dec the sum , if dont consider then keep sum same
         return isSubsetSum(arr,n-1,sum) || isSubsetSum(arr,n-1,sum-arr[n-1]);
     }

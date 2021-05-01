@@ -11,15 +11,15 @@ public class greedyApproach {
         System.out.println(mergeKArrays(new int[][]{{2,5,9},{44,51,65},{79,88,89}},3));
         System.out.println(findMaximumNum("1034",2));
     }
-    public static void preorderTopostorder(int[] preOrder,int start,int end){
+    public static void preorderToPostorder(int[] preOrder,int start,int end){
         if (start>end)
             return;
         int mid=start+1;
         while (mid<=end && preOrder[mid]<preOrder[start])
             mid++;
         mid--;
-        preorderTopostorder(preOrder,start+1,mid);
-        preorderTopostorder(preOrder,mid+1,end);
+        preorderToPostorder(preOrder,start+1,mid);
+        preorderToPostorder(preOrder,mid+1,end);
         System.out.print(preOrder[start]+" ");
     }
     public static NodeBST constructTree(int pre[], int size) {
@@ -85,7 +85,7 @@ public class greedyApproach {
         if (S>9*D)
             return "-1";
         int[] number=new int[D];
-        S--;
+        S=S-1;
         // we reduce sum by one so that we can add  one at last, because it should be atleast d digit num
         for (int i = D-1; i >0 ; i--) {
             if (S>9) {
@@ -225,14 +225,11 @@ public class greedyApproach {
         ArrayList<String> op=new ArrayList<>();
 //        PriorityQueue<huffNode> pq=new PriorityQueue<>(Comparator.comparing(huffNode::getFreq));
 //        PriorityQueue<huffNode> pq=new PriorityQueue<>(Comparator.comparingInt(a -> a.freq));
-        PriorityQueue<huffNode> pq=new PriorityQueue<>(new Comparator<huffNode>() {
-            @Override
-            public int compare(huffNode o1, huffNode o2) {
-                if (o1.freq>= o2.freq)
-                    return 1;
-                else
-                    return -1;
-            }
+        PriorityQueue<huffNode> pq=new PriorityQueue<>((o1, o2) -> {
+            if (o1.freq>= o2.freq)
+                return 1;
+            else
+                return -1;
         });
         for (int i = 0; i < f.length; i++) {
             pq.add(new huffNode(f[i],S.charAt(i)));
@@ -386,8 +383,12 @@ public class greedyApproach {
         System.out.println("min cost of cutting: "+ans);
     }
 
+    // all the array to priority queue with index of all to first element
+    //we choose the first smallest element from the array, inc its index by one and now
+    //push it back to the que. and continue this step, till queue is not empty
     public static ArrayList<Integer> mergeKArrays(int[][] arrays,int k)
     {
+        //priority queue sorted by the array first index
         PriorityQueue<heapItem> pq=new PriorityQueue<>();
         ArrayList<Integer> op=new ArrayList<>();
         for (int i = 0; i < arrays.length; i++) {

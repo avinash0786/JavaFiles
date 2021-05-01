@@ -95,6 +95,7 @@ class nodeTree{
                 que.add(cur.right);
         }
     }
+    //better method
     void LOTLineByLineM2(nodeTree root){
         if (root==null)
             return;
