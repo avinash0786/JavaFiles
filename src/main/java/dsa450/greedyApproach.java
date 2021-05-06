@@ -35,16 +35,35 @@ public class greedyApproach {
             }
             //if we found a element greater than cur element that will be its root so set at right
             if (temp != null) {
+                //for element on the right we will not be able to find any greater element on top of stack
+                //so the element on the
                 temp.right = new NodeBST(pre[i]);
                 s.push(temp.right);
             } else {
                 //if current element not is greater than any element than this element is left to the left
                 // temp = s.peek();
+                //the element on the left of root will be the element just smaller than the roo
+                //se we remove all the stack elements which are greater to the current element
+                //bcoz the left element will be smaller than the root element
                 s.peek().left = new NodeBST(pre[i]);
                 s.push(s.peek().left);
             }
         }
         return root;
+    }
+    public static TreeNode constructBSTpreorder(int[] preorder){
+        return constBSTutil(preorder,0,preorder.length);
+    }
+    public static TreeNode constBSTutil(int[]pre,int rootIndex,int right){
+        if (rootIndex>=right)
+            return null;
+        TreeNode rtNew=new TreeNode(pre[rootIndex]);
+        int index=rootIndex+1;
+        while (index<pre.length && pre[index]<rtNew.val)
+            index++;
+        rtNew.left=constBSTutil(pre,rootIndex+1,index);
+        rtNew.right=constBSTutil(pre,index,right);
+        return rtNew;
     }
     Node copyList(Node head) {
         Node cur=head;

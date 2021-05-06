@@ -4,7 +4,7 @@ import java.util.*;
 
 public class bajajFinser {
     public static void main(String[] args) {
-        nextPermutationNumber(new int[]{3,2,1,4,6,9,1});
+        nextPermutationNumber(new int[]{3,2,1,4,6,9,8,7,6,5,4,3,2,1});
     }
     //next permutation of number by using same number
     // 1 2 3 6 5 4 -> next number by using same nos

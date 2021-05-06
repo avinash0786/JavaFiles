@@ -49,6 +49,9 @@ public class DP_gfgLearn {
         if (j+1<pat.length() && pat.charAt(j+1)=='*'){
             if (regexMatchUtil(i,j+2))      //if we dont match any character
                 return DPregex[i][j]=true;
+            //if char before * match we need to match next chars with the char before *
+            //so to match next char in str we do i+1
+            //and as we need to match it to the char before * we keep our j to j itself
             if (match && regexMatchUtil(i+1,j))
                 return DPregex[i][j]=true;
         }
@@ -65,6 +68,7 @@ public class DP_gfgLearn {
         DPshops=new Integer[shops.length][4];
         coins=shops;
         skipCost=x;
+        //we can skip minimum 3 shops
         return findMinCoins(0,3);
     }
     private static int findMinCoins(int i,int skipLeft){
@@ -73,13 +77,15 @@ public class DP_gfgLearn {
             return 0;
         if (DPshops[i][skipLeft]!=null)
             return DPshops[i][skipLeft];
-
+        //we cannot skip the first and the last shop
         if (i==0 || i==coins.length-1)
             return coins[i]+findMinCoins(i+1,3);
-
+        //if we take the coin, out skipsLeft dont decrease and we add the shop cost
         int take=coins[i]+findMinCoins(i+1,3);
+        //if we dont take the coin our skips decrease by one and we go to next element
         int skip=(skipLeft>0)?skipCost+findMinCoins(i+1,skipLeft-1):Integer.MAX_VALUE;
 
+        //we find the min cost we can spend by skipping or not skipping the shops
         DPshops[i][skipLeft]=Math.min(take,skip);
         return DPshops[i][skipLeft];
     }
@@ -103,6 +109,7 @@ public class DP_gfgLearn {
         return f[n];
     }
 
+    //longest common subsequence
     public static int[][] DP_LCS;
     public static String s1="AXJHDSDKSAHFBOIAH";
     public static String s2="DJBASDSABAHBD";
@@ -356,6 +363,8 @@ public class DP_gfgLearn {
         for (int i = 1; i < DP_minCoin.length; i++) {
             DP_minCoin[i]=Integer.MAX_VALUE;
         }
+        //INTUTION: we first find the min no of ways to find the sum ==1 then sum==2
+        //and at last we find the min no of ways to find sum=val using the eqrlier results
         for (int i = 1; i <= sum; i++)
             for (int k : arr)
                 if (k <= i) {
@@ -408,8 +417,15 @@ public class DP_gfgLearn {
         if (n==1)
             return 0;
         int res=Integer.MAX_VALUE;
-        for (int i = 0; i <=n-2; i++) {
+        //as we need to reach the (n-1) the element i.e last element, we don't need to
+        //make any jump from the last element as we are on that place/destination
+        //so we only loop till n-2 elements
+        ///but we will check for (n-1) bcoz it is our destination
+        for (int i = 0; i <=n-2; i++) { //we can make jumps one step back from our destination only
             if (i+arr[i]>=n-1){
+                //we recur for (i+1) bcoz in call we only check or dest to be n-1 i.e i+1-1 ==i
+                //means if we find a element from where we can reach our destination, we will find the ways to
+                //reach the destination, from where we can reach our original destination
                 int subRes=minJumpsRec(arr,i+1);
                 if (subRes!=Integer.MAX_VALUE){
                     res=Math.min(res,subRes+1); //added 1 to sub res bcoz we made a jump
@@ -481,7 +497,8 @@ public class DP_gfgLearn {
     //Egg dropping problem
     // we need to find out the min no of trails required to find a threshold floor
     //we need to find how many trials are required when egg breaks and don't break and find the min of those
-
+    //if egg broke we need to find the threshold in loser floors
+    //if egg dosen't broke we need to find the threshold
     public static int eggDropThreshold(int eggs,int floors){
         if (eggs==1)
             return floors;

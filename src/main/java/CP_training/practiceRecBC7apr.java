@@ -4,16 +4,17 @@ import java.util.*;
 
 public class practiceRecBC7apr {
     public static void main(String[] args) {
-        System.out.println("Count ways to reach destination: "+countWays(0,4));
-        genBalParenthesis("",3,3);
-//        System.out.println("Sub sets Numbers: ");genSubsetNum(0,new HashSet<>());
-//        genSubsetDuplicate(0,new LinkedList<>());
-//        genSubSetForLoop(0,new HashSet<>());
-        System.out.println("Numer permutation generation: ");
-//        genPermutationNum(new LinkedHashSet<>());
-        System.out.println("Unique path to reach destination: "+uniquePaths(0,0));
-        stepMemo=new int[11];
-        System.out.println("min step to make 1: "+minStepsToReduce(10));
+//        System.out.println("Count ways to reach destination: "+countWays(0,4));
+//        genBalParenthesis("",3,3);
+////        System.out.println("Sub sets Numbers: ");genSubsetNum(0,new HashSet<>());
+////        genSubsetDuplicate(0,new LinkedList<>());
+////        genSubSetForLoop(0,new HashSet<>());
+//        System.out.println("Numer permutation generation: ");
+////        genPermutationNum(new LinkedHashSet<>());
+//        System.out.println("Unique path to reach destination: "+uniquePaths(0,0));
+//        stepMemo=new int[11];
+//        System.out.println("min step to make 1: "+minStepsToReduce(10));
+        System.out.println("Word break: "+wordBreak("pineapplepenapple",new ArrayList<>(Arrays.asList("apple","pen","applepen","pine","pineapple"))));
     }
     public static int countWays(int cur,int dest){
         if (cur==dest)
@@ -121,19 +122,19 @@ public class practiceRecBC7apr {
          stepMemo[n]=1+minStep;
          return stepMemo[n];  // as we performed one step here
     }
-    public List<String> wordBreak(String s, List<String> wordDict) {
+    public static List<String> wordBreak(String s, List<String> wordDict) {
         words=new HashSet<>(wordDict);
         inpStr=s;
         return wordBreakSoln(0);
     }
-    HashMap<Integer,List<String>> memoList=new HashMap<>();
-    HashSet<String> words;
-    String inpStr;
+    static HashMap<Integer,List<String>> memoList=new HashMap<>();
+    static HashSet<String> words;
+    static String inpStr;
 
-    private List<String> wordBreakSoln(int start){
+    private static List<String> wordBreakSoln(int start){
         if (memoList.containsKey(start))
             return memoList.get(start);
-
+//        System.out.println("start: "+start);
         List<String> validSubs=new ArrayList<>();
         if (start==inpStr.length())
             validSubs.add("");
@@ -142,10 +143,13 @@ public class practiceRecBC7apr {
             String prefix=inpStr.substring(start,end);
 
             if (words.contains(prefix)){
+//                System.out.println("Prefix: "+prefix);
                 List<String> nextAns=wordBreakSoln(end);
+//                System.out.println("Start: "+start+"  "+nextAns);
                 for (String nextAn : nextAns) {
                     validSubs.add(prefix+(nextAn.equals("")?"":" ")+nextAn);
                 }
+//                System.out.println(validSubs);
             }
         }
         memoList.put(start,validSubs);
