@@ -55,7 +55,7 @@ public class heapLearn {
         min heap
          */
         for (int i = k; i <arr.length && !pq.isEmpty() ; i++) {
-            if (pq.peek()<arr[k]){
+            if (pq.peek()<arr[i]){
                 pq.poll();
                 pq.add(arr[i]);
             }

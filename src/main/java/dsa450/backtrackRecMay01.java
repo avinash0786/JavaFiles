@@ -754,6 +754,7 @@ public class backtrackRecMay01 {
         return Dp_square[i][j]=1+Math.min(right,Math.min(diagonal,down));
     }
 
+
 }
 
 //        System.out.println("kth symbol in grammer: "+kthGrammer(4,5));

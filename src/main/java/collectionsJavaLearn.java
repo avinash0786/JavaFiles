@@ -3,6 +3,18 @@ import java.util.stream.Collectors;
 
 public class collectionsJavaLearn {
     public static void main(String[] args) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("john", 20);
+        map.put("paul", 30);
+        map.put("peter", 40);
+        map.compute("peter", (k,v)->v+50); //{john=20, paul=30, peter=90} //Increase the value
+
+        map.computeIfPresent("kelly", (k,v)->v+10); //{john=20, paul=30, peter=40} //kelly not present
+        map.computeIfPresent("peter", (k,v)->v+10); //{john=20, paul=30, peter=50} // peter present, so
+
+        map.computeIfAbsent("kelly", k->map.get("john")+10); //{john=20, paul=30, peter=40, kelly=30}
+        map.computeIfAbsent("peter", k->map.get("john")+10); //{john=20, paul=30, peter=40, kelly=30}
+//peter already present
         List<String> fruits=new ArrayList<>();
         fruits.add("Apple");
         fruits.add("Mango");

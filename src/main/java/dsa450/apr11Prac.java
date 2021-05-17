@@ -178,6 +178,7 @@ public class apr11Prac {
         int neededPlatform=1;
         int i=1,j=0;
         while (i<arr.length && j<dep.length){
+            //if a train arrives before the other train has not departed, we need one more platform
             if (arr[i]<=dep[j]){
                 maxPlatform++;
                 neededPlatform=Math.max(neededPlatform,maxPlatform);

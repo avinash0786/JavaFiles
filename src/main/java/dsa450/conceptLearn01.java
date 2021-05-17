@@ -1,7 +1,5 @@
 package dsa450;
 
-import java.util.*;
-
 public class conceptLearn01 {
     conceptLearn01(){
         System.out.println("Concept learn java constructor called :)");
@@ -17,24 +15,40 @@ public class conceptLearn01 {
 
     public static void main(String[] args) {
 
-        Map<String, Integer> numberOfEmployees = new HashMap<>();
-        numberOfEmployees.put("executives", 10);
-        numberOfEmployees.put("human ressources", 32);
-        numberOfEmployees.put("accounting", 12);
-        numberOfEmployees.put("IT", 100);
-// Output the smallest departement in terms of number of employees
-        numberOfEmployees.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .limit(1)
-                .forEach(System.out::println); // outputs : executives=10
-
-        List<Map.Entry<String, Integer>> entries = new ArrayList<>(numberOfEmployees.entrySet());
-        Collections.sort(entries, Map.Entry.comparingByValue());
-
-//        conceptLearn01 ob=new conceptLearn01();
-//        ob.myFunction(1,1);
-//        ob.sum(2l,3);
-////        new child01(7);
+//        Map<String, Integer> numberOfEmployees = new HashMap<>();
+//        numberOfEmployees.put("executives", 10);
+//        numberOfEmployees.put("human ressources", 32);
+//        numberOfEmployees.put("accounting", 12);
+//        numberOfEmployees.put("IT", 100);
+//// Output the smallest departement in terms of number of employees
+//        numberOfEmployees.entrySet().stream()
+//                .sorted(Map.Entry.comparingByValue())
+//                .limit(1)
+//                .forEach(System.out::println); // outputs : executives=10
+//
+//        List<Map.Entry<String, Integer>> entries = new ArrayList<>(numberOfEmployees.entrySet());
+//        Collections.sort(entries, Map.Entry.comparingByValue());
+//        Stack<Integer> a=new Stack<>();
+////        conceptLearn01 ob=new conceptLearn01();
+////        ob.myFunction(1,1);
+////        ob.sum(2l,3);
+//////        new child01(7);
+    }
+}
+abstract class myAbstract01{
+    myAbstract01(){
+        System.out.println("Abstract class constructor");
+    }
+    abstract void firstMethod();
+    void definedBody(){
+        System.out.println("apple is red");
+    }
+}
+interface myInterface{
+    String apple="red";
+    void firstInterface();
+    default void defFunc(){
+        System.out.println("My efault finction");
     }
 }
 class par01{

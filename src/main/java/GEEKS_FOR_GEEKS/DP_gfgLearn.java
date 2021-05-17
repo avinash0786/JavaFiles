@@ -1,6 +1,7 @@
 package GEEKS_FOR_GEEKS;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class DP_gfgLearn {
     public static void main(String[] args) {
@@ -527,6 +528,7 @@ public class DP_gfgLearn {
         for (int i =1; i <=floors; i++) {
             DP_ANS[i][1]=i;
         }
+        //finding min of the upperbound(break, dontBreak)
         //Drop egg from all the floors 2->f and find the floor with min no of trials
         for (int i = 2;i <=floors; i++) {
             for (int j = 2; j <=eggs; j++) {
@@ -545,7 +547,7 @@ public class DP_gfgLearn {
         //bcoz we need to find the worst case that what is threshold
         return DP_ANS[floors][eggs];
     }
-    //Count BST with n keys
+    //Count BST with n keysgr
     //Catalan no DP
     public static int nKeyBST(int n){
         int[] DP_Cat=new int[n+1];
@@ -622,7 +624,11 @@ public class DP_gfgLearn {
     }
 
     // min no of cuts to make string palindrome
+    static HashMap<String,Integer> hashPart;
     public static int palindPart(String str,int i,int j){
+        String key=i+"#"+j;
+        if (hashPart.containsKey(key))
+            return hashPart.get(key);
         if (isPalindrome(str,i,j))
             return 0;
         int res=Integer.MAX_VALUE;
@@ -631,6 +637,7 @@ public class DP_gfgLearn {
             int rightPart=palindPart(str,k+1,j);
             res=Math.min(res,1+leftPart+rightPart);
         }
+        hashPart.put(key,res);
         return res;
     }
     private static boolean isPalindrome(String str,int i, int j){

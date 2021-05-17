@@ -166,12 +166,12 @@ public class bajajFinser {
         }
         return false;
     }
-    Node reverseLLrec(Node cur,Node prev){
+    Node reverseLLrec(Node prev,Node cur){
         if (cur==null)
             return prev;
         Node next=cur.next;
         cur.next=prev;
-        return reverseLLrec(next,cur);
+        return reverseLLrec(cur,next);
     }
 
     //reverse linked list in group of k
@@ -188,6 +188,7 @@ public class bajajFinser {
                 cur.next=prev;
                 prev=cur;
                 cur=next;
+                count++;
             }
             //prev is at the end of the k th node
             if (firstPass){
@@ -252,7 +253,6 @@ public class bajajFinser {
         BTtoDLL(root.left);         //going to left-most node
         if (prev==null){        //only run one time for head assing
             headOfLL=root;
-            prev=root;
         }
         else {      //change the links,
             root.left=prev;
@@ -306,6 +306,7 @@ public class bajajFinser {
         path.remove(path.size()-1);
         return false;
     }
+
     int LCANaive(TreeNode root, int n1, int n2){
         ArrayList<Integer> path1=new ArrayList<>();
         ArrayList<Integer> path2=new ArrayList<>();
@@ -380,6 +381,7 @@ public class bajajFinser {
         for (int i : arr) {
             sum+=i;
         }
+        //for odd sum it is not possible to find the equal sum partition
         if (sum%2==1)
             return false;
         boolean[][] DP_Part=new boolean[sum/2+1][n+1];
@@ -387,6 +389,7 @@ public class bajajFinser {
         for (int i = 0; i <=n; i++) {
             DP_Part[0][i]=true;
         }
+        //the question is reduced to finding the subarray with sum==sum/2
         //as empty set is also a subset of any given set, we my not take any element and get a sum of 0
         //if element ==0 we cannot form a sum
         for (int i = 0; i <= sum/2; i++) {
@@ -394,7 +397,7 @@ public class bajajFinser {
         }
         for (int i = 1; i <= sum/2; i++) {
             for (int j = 1; j <=n; j++) {
-                DP_Part[i][j]=DP_Part[i][j-1];
+                DP_Part[i][j]=DP_Part[i][j-1];//if we dont take this element
                 if (arr[j-1]<=i)    //we can take the element only when its value is less than or equal to sum we need
                     DP_Part[i][j]=DP_Part[i][j] || DP_Part[i-arr[j-1]][j-1];
             }
@@ -437,6 +440,7 @@ public class bajajFinser {
         int ans=recMinTicketCost(DPCOST,days,cost,0);
         return ans;
     }
+    //recursively finding the costs of passes on different days
     public static int recMinTicketCost(int[] dp,int[] days,int[] cost,int i){
         if (i>=days.length)
             return 0;
@@ -458,18 +462,16 @@ public class bajajFinser {
         return dp[i]=Math.min(oneDayPass,Math.min(oneWeekPass,oneMonthPass));
     }
 
-    //longest lenght palindrome we can make
+    //longest lenght palindrome we can make ::we can take subsequences dosent need to be subarray
     //by taking character from a given string// characters use in any order
     public static int longestPalindromeMake(String str){
         char[] arr=str.toCharArray();
         int n=arr.length;
         HashMap<Character,Integer> map=new HashMap<>();
-        for (char c : arr) {
-            if (map.containsKey(c))
-                map.put(c,map.get(c)+1);
-            else
-                map.put(c,1);
-        }
+
+        for (char c : arr)
+                map.put(c,map.getOrDefault(c,0)+1);
+
         int ans=0;
         boolean isFirstOdd=true;
         for (Character chr : map.keySet()) {

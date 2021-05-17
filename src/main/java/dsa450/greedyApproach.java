@@ -18,9 +18,9 @@ public class greedyApproach {
         while (mid<=end && preOrder[mid]<preOrder[start])
             mid++;
         mid--;
-        preorderToPostorder(preOrder,start+1,mid);
-        preorderToPostorder(preOrder,mid+1,end);
-        System.out.print(preOrder[start]+" ");
+        preorderToPostorder(preOrder,start+1,mid);      //left
+        preorderToPostorder(preOrder,mid+1,end);        //right
+        System.out.print(preOrder[start]+" ");          //node
     }
     public static NodeBST constructTree(int pre[], int size) {
         NodeBST root = new NodeBST(pre[0]);
@@ -231,7 +231,7 @@ public class greedyApproach {
         return op;
     }
     //DONE HUFFMAN ENCODING
-    public void getCode(huffNode root,String str,ArrayList<String> res){
+    private void getCode(huffNode root,String str,ArrayList<String> res){
         if (root==null)
             return;
         if (root.character!='$')

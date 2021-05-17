@@ -36,7 +36,6 @@ public class treePracticeApr {
             if (K<0)
                 break;
         }
-
         return op;
     }
     public static void findParent(HashMap<TreeNode,TreeNode> hm,TreeNode root){

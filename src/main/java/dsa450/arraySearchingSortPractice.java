@@ -238,7 +238,7 @@ public class arraySearchingSortPractice {
         for (int i = 1; i <n ; i++) {
             if (arr[res].end>=arr[i].start){
                 arr[res].end=Math.max(arr[res].end,arr[i].end);
-                arr[res].start=Math.min(arr[res].start,arr[res].start);
+                arr[res].start=Math.min(arr[res].start,arr[i].start);
             }
             else {
                 res++;

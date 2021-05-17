@@ -1,5 +1,7 @@
 package dsa450;
 
+import CP_training.DP;
+
 import java.util.*;
 
 /*a graph has nodes and the edges which connect those verted
@@ -134,7 +136,7 @@ public class graphApr25 {
         vis[source]=true;
         for(int i:graph.get(source)){
             if (!vis[i]){
-                if (detCyDFSUtil(graph,vis,i,source));
+                if (detCyDFSUtil(graph,vis,i,source))
                     return true;
             }//if this child which is already visited is not the parent then there is a looop
             //we can only visit a parent again, not any other node
@@ -195,7 +197,7 @@ public class graphApr25 {
                     que.add(i);
                 }
                 //if cur node is visited and it is equal to its parent node which is adjacent return false
-                else if (color[i]==par)
+                else if (color[i]==color[par])
                     return false;
             }
         }
@@ -232,6 +234,7 @@ public class graphApr25 {
 
     //word search in the matrix
     public static boolean wordSearch(char[][] board,String word){
+        DP_WORDSEARCH=new Boolean[board.length+1][board[0].length+1];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j]==word.charAt(0) && wordSUtilMain(board,word,i,j,0))
@@ -240,12 +243,14 @@ public class graphApr25 {
         }
         return false;
     }
+    static Boolean[][] DP_WORDSEARCH;
     public static boolean wordSUtilMain(char[][] board,String word,int i,int j, int index){
         if (index==word.length())       // if we found match of last character
             return true;
-
+        if (DP_WORDSEARCH[i][j]!=null)
+            return DP_WORDSEARCH[i][j];
         //if out index gets outside the board or we dont found the matching char return false
-        if (i==-1 || i==board.length || j==-1 || j==board.length || board[i][j]!=word.charAt(index))
+        if (i==-1 || i==board.length || j==-1 || j==board[0].length || board[i][j]!=word.charAt(index))
             return false;
         char temp=board[i][j];
         board[i][j]='*';    //for backtrack
@@ -256,7 +261,7 @@ public class graphApr25 {
                         wordSUtilMain(board,word,i,j-1,index+1);
 
         board[i][j]=temp;   // do backtrack
-        return found;   //return answer
+        return DP_WORDSEARCH[i][j]=found;   //return answer
     }
 
     //keys ans locks
@@ -331,10 +336,10 @@ public class graphApr25 {
         if (x>=grid.length || x<0 || y>=grid[0].length || y<0 || grid[x][y]!=oldColor)
             return;
         grid[x][y]=newColor;
-        floofFillDFSUtil(grid,x-1,y,oldColor,oldColor);
-        floofFillDFSUtil(grid,x+1,y,oldColor,oldColor);
-        floofFillDFSUtil(grid,x,y-1,oldColor,oldColor);
-        floofFillDFSUtil(grid,x,y+1,oldColor,oldColor);
+        floofFillDFSUtil(grid,x-1,y,oldColor,newColor);
+        floofFillDFSUtil(grid,x+1,y,oldColor,newColor);
+        floofFillDFSUtil(grid,x,y-1,oldColor,newColor);
+        floofFillDFSUtil(grid,x,y+1,oldColor,newColor);
     }
 
     //sorrounded region mark to x
@@ -365,6 +370,7 @@ public class graphApr25 {
         }
         return grid;
     }
+
     private static void srundRgnDFS(char[][] grid,int x,int y){
         if (x>=grid.length || x<0 || y>=grid[0].length || y<0 || grid[x][y]!='O')
             return;
@@ -442,7 +448,7 @@ public class graphApr25 {
             int size=que.size();
             rotten+=size;       //incrementing all the rotten oranges, which are in queue which will be visited this iter
             if (rotten==total)
-                return ans; //if all oranges are not rotten
+                return ans; //if all oranges are now rotten
             ans++;      //incrementing time
             for (int i = 0; i < size; i++) {
                 Pair p=que.poll();      //current coordinate, we will check all 4 directions
@@ -511,14 +517,13 @@ public class graphApr25 {
         for (int i = 0; i < n; i++) {
             if (indegree[i]==0)
                 que.add(i);
-        }   //adding initally 0 depencency nodes to queuey
+        }   //adding initally 0 depencency nodes to query
 
         int index=0;
         while (!que.isEmpty()){
             int par=que.poll();
             topoSort[index++]=par;
             for(int i:graph.get(par)){
-
                 if (--indegree[i]==0)       //if we found a element with 0 dependency we add to queue
                     que.add(i);
             }
@@ -530,6 +535,51 @@ public class graphApr25 {
     // we will count no of elements we popped and al last if count==n
     // we return true/false depending on count==n
 
+    //shortest distance in a Directed Acyclic Graph
+    public static int[] shortestDistDAC(int[][] graph,int src){
+        //do a topological sort and then find the shortest path for DAG
+        int n=graph.length;
+        int[] indegree=new int[n];
+        int[] topoSort=new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (graph[i][j]!=0)
+                    indegree[j]++;
+            }
+        }
+        Queue<Integer> que=new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if (indegree[i]==0)
+                que.add(i);
+        }
+        System.out.println(Arrays.toString(indegree));
+        int idx=0;
+        while (!que.isEmpty()){
+            int par=que.poll();
+            topoSort[idx++]=par;
+            for (int i = 0; i < n; i++) {
+                //for each child we decrement its indegree and if
+                // indegree becomes 0  we add it to queue
+                if (graph[par][i]!=0 && --indegree[i]==0)
+                    que.add(i);
+            }
+        }
+        System.out.println(Arrays.toString(topoSort));
+        int[] dist=new int[n];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[src]=0;
+        //we  go to each element in out topo sort
+        //and go to their childrens and calculate their min dist
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (graph[i][j]!=0 && dist[i]!=Integer.MAX_VALUE){
+                    dist[j]=Math.min(dist[j],dist[i]+graph[i][j]);
+                }
+            }
+        }
+        System.out.println(Arrays.toString(dist));
+        return dist;
+    }
     //DIJKSTRA ALGO:: shortest path --no -ve weights only positive weights
     public static int[] dijkstra(int[][] adjMat,int src){
         int v=adjMat.length;
@@ -541,6 +591,7 @@ public class graphApr25 {
         for (int count=0;count<v-1;count++){    // O(v-1)*v    O(v^2)
             int u=-1;
             //finding the min among the not finalized nodes/un-visited node
+            //can use a priority queue here to get min dist node easily
             for (int i = 0; i < v; i++) {   //  finding the minimum vertex node
                 if (!fin[i] && (u==-1 || dist[i]<dist[u]))
                     u=i;
@@ -694,7 +745,8 @@ public class graphApr25 {
 
             mSet[u] = true;
             res+=key[u];
-
+            //similar to dijkstr just we need to keep track of parent nodes
+            // as we get the min path dist
             for (int v = 0; v < V; v++) {
                 if (graph[u][v] != 0 && !mSet[v] && graph[u][v]<key[v]) {
                     parent[v]=u;
@@ -708,6 +760,19 @@ public class graphApr25 {
         return res;
     }
 
+    //kosaraju strongly connected component algo
+    //strongly connected means we can reach each node back and forth
+    
+    //1.order vertices in decreasing order of their finish time in dfs
+    //2. reverse all the edges in the graph
+    //3. do dfs in th order recieved from step 01
+    //for each vertices print all reahable verices as one strongly connected components
+
+    //the first step ensures that we go from the sink to source side
+    //when we reverse the graph the strongly connected component remains strongly connected
+    public static void kosarajuAlgo(int[][] graph){
+
+    }
 
     //finding the friend circle in a binary matrix
     //finding the no of connected components
