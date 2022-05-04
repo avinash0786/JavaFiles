@@ -64,7 +64,7 @@ public class stringClass
         }
         return res;
     }
-    public static void reverseWords(String inp){
+    public static String reverseWords(String inp){
         char[] str=inp.toCharArray();
         int n=str.length;
         int start=0;
@@ -77,7 +77,38 @@ public class stringClass
         reverse(str,start,n-1);     //  for last edge case
         reverse(str,0,n-1);     //for total string reversal
         String fin=new String(str);
-        System.out.println(fin);
+//        System.out.println(fin);
+        return  fin;
+    }
+    public static void reverseWordCond(String inp,int n){
+        System.out.println("INPUT: "+inp);
+        char[] str=inp.toCharArray();
+        int len=str.length;
+        int start=0;
+        int wordsCount=0;
+        int startIndex=0;
+        for (int i = 0; i < len; i++) {
+            if(str[i]==' '){
+                wordsCount++;
+                if (wordsCount==n){
+                    startIndex=i;
+                    break;
+                }
+            }
+        }
+        String fin="";
+        fin=inp.substring(0,startIndex)+" "+reverseWords(inp.substring(startIndex));
+        System.out.println("FIRST OUTPUT: "+fin);
+        str=fin.toCharArray();
+        start=0;
+        for (int i = 1; i < len; i++) {
+            if(str[i]==' '){
+                reverse(str,start+n,i-1);
+//                System.out.println("start: "+start+" end: "+i);
+                start=i+1;
+            }
+        }
+        System.out.println("SECOND OUTPUT: "+new String(str));
     }
     /*
     APPLE IS RED    --orignal string
@@ -154,6 +185,8 @@ public class stringClass
         }
     }
     public static void main(String[] args) {
+        System.out.println("start");
+        reverseWordCond("Here is the source code of the java program ",2);
 //        System.out.println(anagram("apple","ebppa"));
 //            RBKSearch("GEEKS FOR GEEKS","GEEK");
 //        patternSearchNiave("abcedbefabcd","abcd");

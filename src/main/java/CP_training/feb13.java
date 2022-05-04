@@ -62,6 +62,7 @@ public class feb13 {
                 row++;
         }
     }
+
     public static int cntLess(int[]arr,int x){
         int cnt=0;
         for (int i : arr) {
@@ -116,8 +117,6 @@ public class feb13 {
             else
                 high=mid-1;
         }
-
-
         return -1;
     }
     //aggressive cows
@@ -221,6 +220,7 @@ public class feb13 {
         }
         return -1;
     }
+
     //finding element occ one time in doble occ arr
     //like 1,1,4,4,5,5,7,8,8,9,9,
     /*
@@ -245,9 +245,8 @@ public class feb13 {
         }
         return -1;
     }
-    /*
-    QUESTION: generalize for n-similar elements
-     */
+
+    //QUESTION: generalize for n-similar element
 
     //peak of mountain array
     public static int peakMount(int[] arr){

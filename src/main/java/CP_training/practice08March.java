@@ -41,7 +41,7 @@ public class practice08March {
 
         if (Math.abs(n1-n2)>1)
             return false;
-        char[] first= (n1<n2)?s1.toCharArray():s2.toCharArray();
+        char[] first=(n1<n2)?s1.toCharArray():s2.toCharArray();
         char[] second=(n1<n2)?s2.toCharArray():s1.toCharArray();
 
         int x=0;

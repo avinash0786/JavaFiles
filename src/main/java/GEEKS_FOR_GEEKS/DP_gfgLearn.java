@@ -39,6 +39,7 @@ public class DP_gfgLearn {
     //      i-> string index
     //      j-> pattern index
     private static boolean regexMatchUtil(int i,int j){
+        //if both i & j reached end without terminating, means they matched till now
         if (i>=str.length() && j>=pat.length())
             return true;
         if (j>=pat.length())
@@ -181,7 +182,36 @@ public class DP_gfgLearn {
         return DP_Tab[m][n];
     }
 
-
+    //longest palindromic substring
+    public static int longestPalindromicSubString(String str){
+        int n=str.length();
+        int[][] dp=new int[n][n];
+        for (int i = 0; i < n; i++)
+            dp[i][i]=1;
+        int start=0;
+        int maxLength=1;
+        for (int i = 0; i < n - 1; ++i) {
+            if (str.charAt(i) == str.charAt(i + 1)) {
+                dp[i][i + 1] = 1;
+                start = i;
+                maxLength = 2;
+            }
+        }
+        for (int k = 3; k <=n; k++) {
+            for (int i = 0; i < n-k+1; i++) {
+                int j=i+k-1;
+                if (str.charAt(i)==str.charAt(j) && dp[i+1][j-1]==1){
+                    dp[i][j]=1;
+                    if (k>maxLength){
+                        start=i;
+                        maxLength=k;
+                    }
+                }
+            }
+        }
+        System.out.println("max palind subStre: "+str.substring(start,start+maxLength));
+        return maxLength;
+    }
     /*
     In reursive algo 2 param change i.e n and sum, so create a 2d matrix denoting both var a t axis and
      */
@@ -364,7 +394,7 @@ public class DP_gfgLearn {
         for (int i = 1; i < DP_minCoin.length; i++) {
             DP_minCoin[i]=Integer.MAX_VALUE;
         }
-        //INTUTION: we first find the min no of ways to find the sum ==1 then sum==2
+        //INTUTION: d the swe first find the min no of ways to finum ==1 then sum==2
         //and at last we find the min no of ways to find sum=val using the eqrlier results
         for (int i = 1; i <= sum; i++)
             for (int k : arr)
@@ -396,7 +426,7 @@ public class DP_gfgLearn {
             DP_COINS[0][i]=1;
         }
         for (int i = 1; i <=sum; i++) {
-            DP_COINS[i][0]=0;
+            DP_COINS[i][0]=0;   //if there are no coins then there are no way to make sum==anything
         }
         for (int i = 1; i <=sum; i++) {
             for (int j = 1; j <=n; j++) {
@@ -408,16 +438,16 @@ public class DP_gfgLearn {
         return DP_COINS[sum][n];
     }
 
-    //  Maximum jumps to reach destination
+    //  Minimum jumps to reach destination
     // we call for no of ways to reach destination first and then rec call
     // for the elements which are reachable and
     //find no of ways to reach those elements
     // n is passed length of the array
     public static int minJumpsRec(int[] arr,int n){
 //        System.out.println("call for n: "+n);
-        if (n==1)
+        if (n==0)   //if we are at first position
             return 0;
-        int res=Integer.MAX_VALUE;
+        int res=Integer.MAX_VALUE;  //if we cant reach desired destination
         //as we need to reach the (n-1) the element i.e last element, we don't need to
         //make any jump from the last element as we are on that place/destination
         //so we only loop till n-2 elements
@@ -438,7 +468,7 @@ public class DP_gfgLearn {
     }
     public static int minJumpsDP(int[] arr,int n){  //theta(n^2)  space: theta(n)
         int[] DP_jumps=new int[n];
-        DP_jumps[0]=1;  //if we are first place we dont need ant step so 0
+        DP_jumps[0]=0;  //if we are first place we dont need ant step so 0
         //all other place initially we cant reach there now
         for (int i = 1; i <n; i++) {
             DP_jumps[i]=Integer.MAX_VALUE;
@@ -597,7 +627,7 @@ public class DP_gfgLearn {
         else {
             int include=subSetSum(n-1,sum-arr[n-1]);
             int dontInclude=subSetSum(n-1,sum);
-            return Math.max(include,dontInclude);
+            return include+dontInclude;
         }
     }
     //Dp solution for subset sum problem
@@ -614,10 +644,10 @@ public class DP_gfgLearn {
         // in other case we need to consider both case take and dont take
         for (int i = 1; i <= arr.length; i++) {
             for (int s = 1; s <= sum; s++) {
-                if (sum<arr[i-1])
+                if (sum<arr[i-1])   //to ensure that we dont access -ve index in DP array
                     DP_SUBSUM[i][s]=DP_SUBSUM[i-1][s];
                 else
-                    DP_SUBSUM[i][s]=Math.max(DP_SUBSUM[i-1][s],DP_SUBSUM[i][s-arr[i-1]]);
+                    DP_SUBSUM[i][s]=DP_SUBSUM[i-1][s]+DP_SUBSUM[i][s-arr[i-1]];
             }
         }
         return DP_SUBSUM[arr.length][sum];

@@ -1,9 +1,9 @@
 package dsa450;
 
 public class Pair {
-    int x;
-    int y;
-    Pair(int a,int b){
+    public int x;
+    public int y;
+    public Pair(int a,int b){
         this.x=a;
         this.y=b;
     }

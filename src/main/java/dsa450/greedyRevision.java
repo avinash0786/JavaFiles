@@ -105,14 +105,19 @@ public class greedyRevision {
         int left=0;
         int right=1;
         while (right<n){
+            //when both are not overlapping
             if (intervals[left][1]<=intervals[right][0]){
                 left=right;
                 right++;
             }
+            //if they are not overlapping and the end of first is less than the end of second
+            //first is larger than the second, so remove second
             else if (intervals[left][1]<=intervals[right][1]){
                 count++;
                 right++;
             }
+            //if the end of first is larger than the second, means the first is shadowing the second
+            //remove the first
             else if (intervals[left][1]>intervals[right][1]){
                 count++;
                 left=right;

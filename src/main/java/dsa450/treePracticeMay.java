@@ -315,10 +315,8 @@ public class treePracticeMay {
                     dq.add(null);
                 }
                 else {
-                    if (cur.left!=null)
-                        dq.add(cur.left);
-                    if (cur.right!=null)
-                        dq.add(cur.right);
+                    dq.add(cur.left);
+                    dq.add(cur.right);
                 }
             }
         }

@@ -22,7 +22,7 @@ public class hashingClass
         if(hashTable[hash1(key)]<=0) {
             hashTable[hash1(key)] = key;
             System.out.println("Inserted : "+key+" as index: "+hash1(key));
-        }        else {
+        }else {
             int i=1;
             while (i!=hash1(key)){
                 int tem=(hash1(key)+i*hash2(key))%TABLESIZE;

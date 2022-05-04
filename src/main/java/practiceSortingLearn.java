@@ -202,7 +202,8 @@ public class practiceSortingLearn {
             if (i>0 && a1[i]==a1[i-1]) {
                 i++;
                 continue;
-            }            if (a1[i]<a2[j])
+            }
+            if (a1[i]<a2[j])
                 i++;
             else if (a1[i]>a2[j])
                 j++;
@@ -307,7 +308,7 @@ public class practiceSortingLearn {
     }
     public static void mergeSort(int[] arr,int l, int r){
         System.out.println("MergeSort call l: "+l+" r: "+r);
-        if (r>l){
+        if (r>l){       //the lowest point is when we have only 2 elements left
             int mid=l+(r-l)/2;
             mergeSort(arr,l,mid);
             mergeSort(arr,mid+1,r);

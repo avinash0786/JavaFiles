@@ -1,6 +1,5 @@
 package dsa450;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,13 +158,12 @@ class buildingPoints implements Comparable<buildingPoints>{
         this.isStart=isStart;
     }
 
-    @Override
     //first compare by x.
     //If they are same then use this logic
     //if two starts are compared then higher height building should be picked first
     //if two ends are compared then lower height building should be picked first
     //if one start and end is compared then start should appear before end
-    public int compareTo(@NotNull buildingPoints o) {
+    public int compareTo( buildingPoints o) {
         if (this.x!=o.x)
             return this.x-o.x;
         else{

@@ -452,6 +452,7 @@ public class graphApr25 {
             ans++;      //incrementing time
             for (int i = 0; i < size; i++) {
                 Pair p=que.poll();      //current coordinate, we will check all 4 directions
+                // and all reachable oranges will be rotten and pushed to the queue
                 if (p.x+1<cols && grid[p.x][p.y]==1){
                     grid[p.x+1][p.y]=2;
                     que.add(new Pair(p.x+1,p.y));
@@ -636,6 +637,7 @@ public class graphApr25 {
 //            }
 //        });
         pq.offer(new Integer[]{source,0,stops});    ///adding source node in priority queue
+
         while (!pq.isEmpty()){
             Integer[] cur=pq.poll();
             int curNode=cur[0];

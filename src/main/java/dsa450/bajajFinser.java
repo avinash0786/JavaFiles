@@ -389,7 +389,7 @@ public class bajajFinser {
         for (int i = 0; i <=n; i++) {
             DP_Part[0][i]=true;
         }
-        //the question is reduced to finding the subarray with sum==sum/2
+        //the question is reduced to finding the subset with sum==sum/2
         //as empty set is also a subset of any given set, we my not take any element and get a sum of 0
         //if element ==0 we cannot form a sum
         for (int i = 0; i <= sum/2; i++) {
@@ -407,6 +407,7 @@ public class bajajFinser {
 
     //maximum path sum of going from first row to last row
     // movement allowed :  down,  diagonal right, diagonal left
+    //minimum falling sum
     public static int maxPathSumRow(int[][] matrix,int n){
         int[][] DPPATH=new int[n][n];
         //in first row we have the path sum as its initial value
@@ -415,7 +416,7 @@ public class bajajFinser {
         }
         for (int i = 1; i < n; i++) {       //starting from 2nd row
             for (int j = 0; j < n; j++) {       //traversing each column
-                if (j==0 && j+1<n)      //if at left end
+                if (j==0 && j+1<n)      //if at left end we can reach here only by top or top diagonal cell
                     DPPATH[i][j]=matrix[i][j]+Math.max(DPPATH[i-1][j],DPPATH[i-1][j+1]);
                 else if (j-1>=0 && j==n-1)      //if at right end
                     DPPATH[i][j]=matrix[i][j]+Math.max(DPPATH[i-1][j],DPPATH[i-1][j-1]);

@@ -1,21 +1,20 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class oppsLearnMay {
     public static void main(String[] args) throws IOException {
-        File myFile=new File("file01.txt");
-        myFile.createNewFile();
-        System.out.println(myFile.exists());
-        System.out.println("file name: "+myFile.getName());
-        FileWriter writeFile=new FileWriter(myFile);
-        writeFile.write("Apple is red\n");
-        writeFile.write("Mango is yellow");
-        writeFile.close();
 
-        Scanner inp=new Scanner(myFile);
-        System.out.println(inp.nextLine());
+
+//        File myFile=new File("file01.txt");
+//        myFile.createNewFile();
+//        System.out.println(myFile.exists());
+//        System.out.println("file name: "+myFile.getName());
+//        FileWriter writeFile=new FileWriter(myFile);
+//        writeFile.write("Apple is red\n");
+//        writeFile.write("Mango is yellow");
+//        writeFile.close();
+//
+//        Scanner inp=new Scanner(myFile);
+//        System.out.println(inp.nextLine());
     }
 }
 /*

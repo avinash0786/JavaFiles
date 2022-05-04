@@ -7,7 +7,11 @@ public class practiceDP_rev {
 //        System.out.println("Shops and candies: "+shopAndCandies(new int[]{1,2,3,4,5,6,7,8,9},2));
 //        System.out.println(wordBreak01("leetcode",new ArrayList<>(Arrays.asList("leet","code"))));
 //        System.out.println("Shops and candies new: "+shopsAndCandiesOptimized(new int[]{1,2,3,4,5},2));
-        System.out.println("Regex match: "+isMatch("aab","c*a*b"));
+//        System.out.println("Regex match: "+isMatch("aab","c*a*b"));
+        System.out.println("coin change ways: "+changeCoinWays(new int[]{1,2,5},5));
+        System.out.println("Get count ways: "+getCountWays(new int[]{1,2,5},5,3));
+        System.out.println("Count sum ways: "+getCoinSumWays(new int[]{1,2,5},5));
+//        System.out.println("min coin : "+minCoinSum(100,new int[]{1,2,5}));
     }
     public static void  util(String[] arr){
         String[] pop=arr[0].substring(1,arr[0].length()-1).split(",");
@@ -47,7 +51,7 @@ public class practiceDP_rev {
         return DP[n];
     }
 
-    //coin change: no of ways to get the sum by using the given coin type
+    //coin change: no of ways to get the sum by using the given coin type  OKOK
     public static int getCountWays(int[] coins, int sum, int n){
         if (sum==0)
             return 1;
@@ -76,11 +80,11 @@ public class practiceDP_rev {
         if (map.containsKey(key))
             return map.get(key);
         int res=0;
-        for (int i = index; i < coins.length; i++) {
-            if (coins[i]<=sum)
-                res+=solveSumCoinChangeWays(index,sum-coins[i],coins,map);
-            // we are not changing the indx of next call because we can take one coin multiple times
-        }//no of ways we can find sum-coin[i] in the other right parts
+        res=solveSumCoinChangeWays(index+1,sum,coins,map);
+        if (coins[index]<=sum)
+            res+=solveSumCoinChangeWays(index,sum-coins[index],coins,map);
+        // we are not changing the indx of next call because we can take one coin multiple times
+        //no of ways we can find sum-coin[i] in the other right parts
         map.put(key,res);
         return res;
     }
@@ -118,7 +122,7 @@ public class practiceDP_rev {
                 }
             }
         }
-        return DP[sum];
+        return DP[sum]==Integer.MAX_VALUE?-1:DP[sum];
     }
     //we go for a given sum to all the coins
     //what are the no of ways to get sum ==1
@@ -126,11 +130,12 @@ public class practiceDP_rev {
     public static int getCoinSumWays(int[] coins,int sum){
         int n=coins.length;
         int[][] DP=new int[sum+1][n+1];
-        for (int i = 0; i < sum; i++) {
-            DP[i][0]=1;
-        }   //if no element is there, then there is one way to make any sum, by not taking any element
-        for (int i = 1; i < n; i++) {
-            DP[0][i]=0;
+        //if number of element is 0 then there is no way we can may any sum
+        for (int i = 0; i <=sum; i++) {
+            DP[i][0]=0;
+        }   //if sum is 0, then there is one way to make any sum, by not taking any element
+        for (int i = 1; i <= n; i++) {
+            DP[0][i]=1;
         }
         for (int i = 1; i <= sum; i++) {
             for (int j = 1; j <= n; j++) {
@@ -141,7 +146,22 @@ public class practiceDP_rev {
         }
         return DP[sum][n];
     }
-
+    //bottom up
+    public static int coinChangeCount(int amount, int[] coins) {
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1];
+        //if sum==0 the there is one way to make sum by taking no elements ,as empty set[]
+        for (int i = 0; i <= n; i++)
+            dp[i][0] = 1; // have 1 way to change 0 amount
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= amount; j++) {
+                dp[i][j] = dp[i - 1][j]; // skip ith coin
+                if (j >= coins[i - 1])
+                    dp[i][j] += dp[i][j - coins[i - 1]]; // use ith coin
+            }
+        }
+        return dp[n][amount];
+    }
     //KNAPSACK PROBLEM
     //given the weights and its value in array and a capacity
     ///find max value to accomodate in that capacity
@@ -165,12 +185,12 @@ public class practiceDP_rev {
             return 0;
         int res=Integer.MAX_VALUE;
         for (int i = 0; i <=index-1; i++) {
-            if (i+jumps[i]>=index-1){
-                int subRes=minJumpsRequired(jumps,index+1);
+            if (i+jumps[i]>=index-1){int subRes=minJumpsRequired(jumps,index+1);
                 if (subRes!=Integer.MAX_VALUE)
                     res=Math.min(res,subRes+1);
             }
         }
+
         return res;
     }
     //DP tabulation

@@ -18,6 +18,7 @@ public class backtrackRecMay01 {
         System.out.println("Min path sum: "+minPathSumDp(new int[][]{{1,3,1},{4,5,1},{4,2,1}},0,0));
         System.out.println("Tabulation Path SUM: "+minPathSumTabulation(new int[][]{{1,2,3},{4,5,6}}));
         System.out.println("decimal to hexadecimal: "+toHexaDecimal(7562));
+        System.out.println("Max profit: "+maxProfitbuySell2trans(0,0,new int[]{22,21,20,18,15},2));
     }
 
     //detect loop and return the loop start pointer
@@ -539,30 +540,31 @@ public class backtrackRecMay01 {
         System.out.println(Arrays.toString(op));
     }
     public static int trappingRainWater(int[] heights){
-        int n=heights.length;
-        int leftMax=0;
-        int rightMax=0;
-        int start=0;
-        int end=n-1;
-        int res=0;
-        while (start<=end){
-            if (heights[start]<=heights[end]){
-                if (heights[start]>=leftMax)
-                    leftMax=heights[start];
+        int n=arr.length;
+        if (n<2) return 0;
+        int trappedWater=0;
+        int leftMax=arr[0];
+        int rightMax=arr[n-1];
+        int low=1,high=n-2;
+        while (low<=high){
+            if(leftMax<rightMax){
+                if (arr[low]>leftMax)
+                    leftMax=arr[low];
                 else
-                    res+=leftMax-heights[start];
-                start++;
+                    trappedWater+=leftMax-arr[low];
+                low++;
             }
             else {
-                if (heights[end]>=rightMax)
-                    rightMax=heights[end];
+                if (arr[high]>rightMax)
+                    rightMax=arr[high];
                 else
-                    res+=rightMax-heights[end];
+                    trappedWater+=rightMax-arr[high];
+                high--;
             }
-            end--;
         }
-        return res;
+        return trappedWater;
     }
+    //dungeon game
     //find the min initial health required to reach th bottom right point from top left
     static Integer[][] Dp_health;
     public static int calcMinInitValue(int i,int j,int[][] grid){
@@ -572,11 +574,11 @@ public class backtrackRecMay01 {
             return Integer.MAX_VALUE;
         int health=Math.min(calcMinInitValue(i+1,j,grid),calcMinInitValue(i,j+1,grid));
         if (health==Integer.MAX_VALUE)
-            health=1;
+            health=1;   //for the corner value we need atleast 1 health
         int res=0;
         //if cur position req is less that the requirement downwards, we need the required energy
         //from the upper positions
-        if (health-grid[i][j]>0)
+        if (health-grid[i][j]>0)    //if current node health is less that the requirement next, we need extra health
             res=health-grid[i][j];
         else
             //if cur position have sufficient energy to fullfill the requirements of the lower level
@@ -610,8 +612,8 @@ public class backtrackRecMay01 {
             return 0;
         int n=str.length();
         int[]DP=new int[n+1];
-        DP[0]=1;
-        DP[1]=str.charAt(0)=='0'?0:1;
+        DP[0]=1;    //empty string
+        DP[1]=str.charAt(0)=='0'?0:1;   //1 length string
         for (int i = 2; i <=n; i++) {
             //if taking one element is valid we increment by one the previous answer
             int first=Integer.parseInt(str.substring(i-1,i));
@@ -641,7 +643,7 @@ public class backtrackRecMay01 {
     }
     //123. Best Time to Buy and Sell Stock III
     //making max 2 profit
-    static HashMap<String,Integer> mapBuysSell;
+    static HashMap<String,Integer> mapBuysSell=new HashMap<>();
     public static int maxProfitbuySell2trans(int i,int buyOrSell,int[] prices,int k){
         if (i>=prices.length || k==0)
             return 0;
@@ -671,10 +673,14 @@ public class backtrackRecMay01 {
         HashMap<Integer,Boolean> hm=new HashMap<>();
         for (int i : nums)
             hm.put(i,true);
+        //set all element true are they are starting element of a cons seq
         for (int i : nums) {
             if (hm.containsKey(i-1))
                 hm.put(i,false);
-        }
+        }//set all elements whose prev cons is present to false , to indicate that thre is
+        //a smaller starting index
+        //motive is to find the starting of every cons seq and set it to true
+        //and find lenght the the elements which are starting only and find there length
         int maxLen=0;
         for (Integer key : hm.keySet()) {
             if (hm.get(key)){

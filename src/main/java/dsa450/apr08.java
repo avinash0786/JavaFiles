@@ -22,7 +22,9 @@ public class apr08 {
         int low=0;
         int mid=0;
         while (mid<=high) {
-            if (arr[mid]==0){     // if  0 swap
+            if (arr[mid]==0){     // if  0 swap mid and low
+                //as we know the low would be 1 only as it is already processed
+                //therefore we inc mid also and low
                 swap(arr,mid,low);
                 low++;
                 mid++;
@@ -30,6 +32,8 @@ public class apr08 {
             else if (arr[mid]==1){
                 mid++;
             }
+            //we keep mid to that position only so that we can process
+            // what is coming from high
             else {
                 swap(arr,mid,high);
                 high--;
@@ -154,7 +158,7 @@ public class apr08 {
     static int[] cntInvArr=new int[]{10, 10, 10};
     public static int countInversion(int low,int high){
         int res=0;
-        if (low<high){
+        if (low<high){//we recur till there is only 2 elements
             int mid=low+(high-low)/2;
             res+=countInversion(low,mid);
             res+=countInversion(mid+1,high);
@@ -223,7 +227,7 @@ public class apr08 {
         return minLen;
     }
     //maximum profit made by doing 2 non-overlapping transactions in a day
-    //given stock prices throughout a dya
+    //given stock prices throughout a day
     public static int maxProfit2Trans01Day(int[]prices){
         int n=prices.length;
         int[] DP_PROFIT=new int[n];
